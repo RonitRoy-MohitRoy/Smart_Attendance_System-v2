@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Attendance System</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/attendance.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <header>
+        <img src="{{ url_for('static', filename='images/logo.jpg') }}" class="logo">
+
+        <h1>VEERAYATAN POLYTECHNIC</h1>
+        <h2>Computer Engineering Department</h2>
+        <h3>SMART ATTENDANCE SYSTEM</h3>
+    </header>
+
+    <!-- Semester -->
+    <div class="semester-title">
+        <h2>Semester 1 Attendance</h2>
+    </div>
+
+    <!-- Information -->
+    <div class="info-section">
+
+        <div>
+            <label>Subject Name</label>
+            <input type="text" id="subject" placeholder="Enter Subject Name">
+        </div>
+
+        <div>
+            <label>Faculty Name</label>
+            <input type="text" id="faculty" placeholder="Enter Faculty Name">
+        </div>
+
+        <div>
+            <label>Date</label>
+            <input type="date" id="date">
+        </div>
+
+    </div>
+
+    <!-- Attendance Table -->
+    <table id="attendanceTable">
+        <thead>
+            <tr>
+                <th>Sr. No.</th>
+                <th>Student Name</th>
+                <th>Enrollment Number</th>
+                <th>Status</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+
+        <tbody></tbody>
+    </table>
+
+    <!-- Student Entry -->
+    <div class="student-entry">
+
+        <input type="text" id="studentName" placeholder="Student Full Name">
+        <input type="text" id="enrollment" placeholder="Enrollment Number">
+
+    </div>
+
+    <!-- Buttons -->
+    <div class="buttons">
+
+        <button onclick="addStudent()">Add Student</button>
+
+        <button onclick="saveData()">Save Data</button>
+
+        <button onclick="downloadData()">Download Excel</button>
+
+        <button onclick="window.print()">Print</button>
+
+        <button onclick="location.href='/'">Home</button>
+
+    </div>
+
+</div>
+
+<!-- ✅ FIX: Script must be inside body -->
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Attendance System</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- Header -->
+        <header>
+
+            <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="College Logo" class="logo">
+
+            <h1>VEERAYATAN POLYTECHNIC</h1>
+
+            <h2>Computer Engineering Department</h2>
+
+            <h3>SMART ATTENDANCE SYSTEM & CLASS ACTIVITY</h3>
+
+        </header>
+
+        <!-- Introduction -->
+
+        <section class="introduction">
+
+            <h2>About Veerayatan Polytechnic</h2>
+
+            <p>
+
+                Veerayatan Polytechnic is committed to providing quality technical education,
+                practical knowledge, and professional skills to students.
+                The Computer Engineering Department focuses on developing strong programming,
+                software development, networking, and problem-solving skills, preparing students
+                for successful careers in the IT industry.
+
+            </p>
+
+        </section>
+
+        <!-- Department Heading -->
+
+        <section class="department">
+
+            <h2>COMPUTER ENGINEERING</h2>
+
+        </section>
+
+        <!-- Semester Buttons -->
+
+        <section class="semester-section">
+
+            <a href="/attendance/semester1">
+                <button>Semester 1</button>
+            </a>
+
+            <a href="/attendance/semester2">
+                <button>Semester 2</button>
+            </a>
+
+            <a href="/attendance/semester3">
+                <button>Semester 3</button>
+            </a>
+
+            <a href="/attendance/semester4">
+                <button>Semester 4</button>
+            </a>
+
+            <a href="/attendance/semester5">
+                <button>Semester 5</button>
+            </a>
+
+            <a href="/attendance/semester6">
+                <button>Semester 6</button>
+            </a>
+
+        </section>
+		
+		<!-- Class Activity Buttons -->
+
+<section class="semester-section">
+
+    <a href="/class_activity/semester1">
+        <button>Class Activity - Semester 1</button>
+    </a>
+
+    <a href="/class_activity/semester2">
+        <button>Class Activity - Semester 2</button>
+    </a>
+
+    <a href="/class_activity/semester3">
+        <button>Class Activity - Semester 3</button>
+    </a>
+
+    <a href="/class_activity/semester4">
+        <button>Class Activity - Semester 4</button>
+    </a>
+
+    <a href="/class_activity/semester5">
+        <button>Class Activity - Semester 5</button>
+    </a>
+
+    <a href="/class_activity/semester6">
+        <button>Class Activity - Semester 6</button>
+    </a>
+
+</section>
+
+        <!-- Footer -->
+
+        <footer>
+
+            <p>
+                © 2026 Veerayatan Polytechnic | Smart Attendance System
+            </p>
+
+        </footer>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Class Activity</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/class_activity.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ==========================
+         HEADER
+    =========================== -->
+
+    <header>
+
+        <img src="{{ url_for('static', filename='images/logo.jpg') }}"
+             class="logo">
+
+        <h1>VEERAYATAN POLYTECHNIC</h1>
+
+        <h2>Computer Engineering Department</h2>
+
+        <h3>CLASS ACTIVITY MANAGEMENT</h3>
+
+    </header>
+
+    <!-- ==========================
+         SEMESTER TITLE
+    =========================== -->
+
+    <div class="semester-title">
+
+        <h2 id="semester">{{ semester }}</h2>
+
+    </div>
+
+    <!-- ==========================
+         STUDENT DETAILS
+    =========================== -->
+
+    <div class="info-section">
+
+        <div>
+
+            <label>Student Name</label>
+
+            <input
+                type="text"
+                id="studentName"
+                placeholder="Enter Student Name">
+
+        </div>
+
+        <div>
+
+            <label>Enrollment Number</label>
+
+            <input
+                type="text"
+                id="enrollment"
+                placeholder="Enter Enrollment Number">
+
+        </div>
+
+        <div>
+
+            <label>Faculty Name</label>
+
+            <input
+                type="text"
+                id="faculty"
+                placeholder="Enter Faculty Name">
+
+        </div>
+
+        <div>
+
+            <label>Date</label>
+
+            <input
+                type="date"
+                id="date">
+
+        </div>
+
+    </div>
+
+    <!-- ==========================
+         MAXIMUM MARKS
+    =========================== -->
+
+    <div class="marks-config">
+
+        <div>
+
+            <label>Assignment (Out Of)</label>
+
+            <input
+                type="number"
+                id="assignmentMax"
+                min="1"
+                value="20">
+
+        </div>
+
+        <div>
+
+            <label>Practical (Out Of)</label>
+
+            <input
+                type="number"
+                id="practicalMax"
+                min="1"
+                value="30">
+
+        </div>
+
+        <div>
+
+            <label>Project (Out Of)</label>
+
+            <input
+                type="number"
+                id="projectMax"
+                min="1"
+                value="20">
+
+        </div>
+
+        <div>
+
+            <button onclick="applyMarks()">
+
+                Apply Marks
+
+            </button>
+
+        </div>
+
+    </div>
+	<!-- ==========================
+         SEARCH STUDENT
+    =========================== -->
+
+    <div class="search-section">
+
+        <button onclick="searchStudent()">
+
+            Search Student
+
+        </button>
+
+    </div>
+
+    <!-- ==========================
+         CLASS ACTIVITY TABLE
+    =========================== -->
+
+    <table id="activityTable">
+
+        <thead>
+
+            <tr>
+
+                <th>Sr. No.</th>
+
+                <th>Subject</th>
+
+                <th id="assignmentHeading">
+                    Assignment (20)
+                </th>
+
+                <th id="practicalHeading">
+                    Practical (30)
+                </th>
+
+                <th id="projectHeading">
+                    Project (20)
+                </th>
+
+                <th>Total</th>
+
+                <th>Percentage</th>
+
+                <th>Remarks</th>
+
+                <th>Action</th>
+
+            </tr>
+
+        </thead>
+
+        <!--
+            Subjects will be loaded automatically
+            according to the selected semester.
+
+            Example:
+            Semester 1 -> Maths, Physics...
+            Semester 2 -> Chemistry, SL...
+        -->
+
+        <tbody id="activityBody">
+
+            <!-- JavaScript will insert rows here -->
+
+        </tbody>
+
+    </table>
+
+    <!-- ==========================
+         SUBJECT INFORMATION
+    =========================== -->
+
+    <div class="subject-info">
+
+        <p>
+
+            <strong>Note:</strong>
+
+            Subjects are added only once for each
+            semester.
+
+            After saving, they will automatically
+            appear every time this semester is opened.
+
+            If a wrong subject is added, use
+            <strong>Add / Edit Subject</strong>
+            to correct it.
+
+        </p>
+
+    </div>
+	<!-- ==========================
+         ACTION BUTTONS
+    =========================== -->
+
+    <div class="buttons">
+
+        <button onclick="manageSubject()">
+
+            Manage Subjects
+
+        </button>
+
+        <button onclick="saveActivity()">
+
+            Save Data
+
+        </button>
+
+        <button onclick="downloadActivity()">
+
+            Download Excel
+
+        </button>
+
+        <button onclick="window.print()">
+
+            Print
+
+        </button>
+
+        <button onclick="location.href='/'">
+
+            Home
+
+        </button>
+
+    </div>
+
+    <!-- ==========================
+         FOOTER NOTE
+    =========================== -->
+
+    <div class="subject-info">
+
+        <p>
+
+            <strong>Instructions:</strong>
+
+            Add the subjects only once for each semester.
+            They will be saved permanently for that semester.
+            If a subject is entered incorrectly, use the
+            <strong>Add / Edit Subject</strong> button to
+            update or remove it.
+
+        </p>
+
+    </div>
+
+</div>
+
+<!-- ==========================
+     JAVASCRIPT
+========================== -->
+
+<script src="{{ url_for('static', filename='js/class_activity.js') }}"></script>
+
+</body>
+
+</html>
