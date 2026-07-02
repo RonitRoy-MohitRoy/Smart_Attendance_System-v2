@@ -1,236 +1,643 @@
 from flask import Flask, render_template, request, jsonify, send_file
-import json
-import os
 from openpyxl import Workbook
+from datetime import datetime
+
+import os
+import json
 
 app = Flask(__name__)
 
-# =============================
-# DATA FILE
-# =============================
-DATA_FILE = "attendance_data.json"
-CLASS_ACTIVITY_FILE ="class_activity_data.json"
-SUBJECTS_FILE="subjects.json"
+# ==================================================
+# FOLDERS & FILES
+# ==================================================
+
+ATTENDANCE_FOLDER = "attendance_data"
+STUDENT_FOLDER = "student"
+
+CLASS_ACTIVITY_FILE = "class_activity_data.json"
+SUBJECTS_FILE = "subjects.json"
+
+os.makedirs(ATTENDANCE_FOLDER, exist_ok=True)
+os.makedirs(STUDENT_FOLDER, exist_ok=True)
 
 
-# =============================
+# ==================================================
 # HOME PAGE
-# =============================
+# ==================================================
+
 @app.route("/")
 def home():
     return render_template("index.html")
 
 
-# =============================
+# ==================================================
 # ATTENDANCE PAGE
-# =============================
+# ==================================================
+
 @app.route("/attendance/<semester>")
 def attendance(semester):
-    return render_template("attendance.html", semester=semester)
+    return render_template(
+        "attendance.html",
+        semester=semester
+    )
 
 
-# =============================
+# ==================================================
 # SAVE ATTENDANCE
-# =============================
+# ==================================================
+
 @app.route("/save_attendance", methods=["POST"])
 def save_attendance():
-    try:
-        new_data = request.get_json()
 
-        # load existing data
-        if os.path.exists(DATA_FILE):
+    try:
+
+        data = request.get_json()
+
+        semester = data.get(
+            "semester",
+            "semester1"
+        )
+
+        timestamp = datetime.now().strftime(
+            "%Y-%m-%d_%H-%M-%S"
+        )
+
+        filename = f"{semester}_{timestamp}.json"
+
+        filepath = os.path.join(
+            ATTENDANCE_FOLDER,
+            filename
+        )
+
+        with open(
+            filepath,
+            "w",
+            encoding="utf-8"
+        ) as file:
+
+            json.dump(
+                data,
+                file,
+                indent=4,
+                ensure_ascii=False
+            )
+
+        return jsonify({
+
+            "success": True,
+            "file": filename
+
+        })
+
+    except Exception as e:
+
+        return jsonify({
+
+            "success": False,
+            "error": str(e)
+
+        })
+
+
+# ==================================================
+# GET ATTENDANCE
+# ==================================================
+
+@app.route("/get_all/<semester>")
+def get_all(semester):
+
+    try:
+
+        filepath = os.path.join(
+            ATTENDANCE_FOLDER,
+            f"{semester}.json"
+        )
+
+        if not os.path.exists(filepath):
+            return jsonify([])
+
+        with open(
+            filepath,
+            "r",
+            encoding="utf-8"
+        ) as file:
+
             try:
-                with open(DATA_FILE, "r",encoding="utf-8") as f:
-                    all_data = json.load(f)
+                data = json.load(file)
             except:
-                all_data = []
-        else:
-            all_data = []
+                data = []
 
-        all_data.append(new_data)
-
-        with open(DATA_FILE, "w",encoding="utf-8") as f:
-            json.dump(all_data, f, indent=4,ensure_ascii=False)
-
-        return jsonify({"success": True})
+        return jsonify(data)
 
     except Exception as e:
-        return jsonify({"success": False, "error": str(e)})
 
+        return jsonify({
 
-# =============================
-# GET ALL DATA
-# =============================
-@app.route("/get_all", methods=["GET"])
-def get_all():
+            "success": False,
+            "error": str(e)
+
+        })
+# ==================================================
+# DOWNLOAD ATTENDANCE EXCEL
+# ==================================================
+
+@app.route("/download_excel/<semester>")
+def download_excel(semester):
+
     try:
-        if os.path.exists(DATA_FILE):
-            with open(DATA_FILE, "r",encoding="utf-8") as f:
-                try:
-                    data = json.load(f)
-                except:
-                    data = []
-            return jsonify(data)
 
-        return jsonify([])
+        files = [
 
-    except Exception as e:
-        return jsonify({"success": False, "error": str(e)})
+            file for file in os.listdir(ATTENDANCE_FOLDER)
 
+            if file.startswith(semester)
+            and file.endswith(".json")
 
-# =============================
-# DOWNLOAD EXCEL
-# =============================
-@app.route("/download_excel")
-def download_excel():
-    try:
-        if not os.path.exists(DATA_FILE):
-            return "No data available"
+        ]
 
-        with open(DATA_FILE, "r",encoding="utf-8") as f:
-            all_data = json.load(f)
+        if not files:
+            return "No attendance data available."
+
+        latest_file = max(
+
+            files,
+
+            key=lambda file: os.path.getmtime(
+                os.path.join(
+                    ATTENDANCE_FOLDER,
+                    file
+                )
+            )
+
+        )
+
+        filepath = os.path.join(
+            ATTENDANCE_FOLDER,
+            latest_file
+        )
+
+        with open(
+            filepath,
+            "r",
+            encoding="utf-8"
+        ) as file:
+
+            record = json.load(file)
 
         wb = Workbook()
         ws = wb.active
         ws.title = "Attendance"
 
-        # header
         ws.append([
             "Subject",
             "Faculty",
             "Date",
-            "SrNo",
+            "Sr No",
             "Student Name",
             "Enrollment",
             "Status"
         ])
 
-        # data fill
-        for record in all_data:
-            subject = record.get("subject", "")
-            faculty = record.get("faculty", "")
-            date = record.get("date", "")
+        for student in record.get("students", []):
 
-            for s in record.get("students", []):
-                ws.append([
-                    subject,
-                    faculty,
-                    date,
-                    s.get("srNo", ""),
-                    s.get("studentName", ""),
-                    s.get("enrollment", ""),
-                    s.get("status", "")
-                ])
+            ws.append([
 
-        file_name = "attendance.xlsx"
-        wb.save(file_name)
+                record.get("subject", ""),
+                record.get("faculty", ""),
+                record.get("date", ""),
 
-        return send_file(file_name, as_attachment=True)
+                student.get("srNo", ""),
+                student.get("studentName", ""),
+                student.get("enrollment", ""),
+                student.get("status", "")
+
+            ])
+
+        excel_name = latest_file.replace(
+            ".json",
+            ".xlsx"
+        )
+
+        excel_path = os.path.join(
+            ATTENDANCE_FOLDER,
+            excel_name
+        )
+
+        wb.save(excel_path)
+
+        return send_file(
+            excel_path,
+            as_attachment=True
+        )
 
     except Exception as e:
-        return jsonify({"success": False, "error": str(e)})
 
-# =============================
+        return jsonify({
+
+            "success": False,
+            "error": str(e)
+
+        })
+
+
+# ==================================================
 # CLASS ACTIVITY PAGE
-# =============================
+# ==================================================
+
 @app.route("/class_activity/<semester>")
 def class_activity(semester):
-    return render_template("class_activity.html", semester=semester)
+
+    return render_template(
+        "class_activity.html",
+        semester=semester
+    )
 
 
-# =============================
+# ==================================================
 # SAVE SUBJECTS
-# =============================
+# ==================================================
+
 @app.route("/save_subjects", methods=["POST"])
 def save_subjects():
+
     try:
+
         data = request.get_json()
 
         semester = data.get("semester")
         subjects = data.get("subjects", [])
 
-        # Load existing subjects
         if os.path.exists(SUBJECTS_FILE):
-            with open(SUBJECTS_FILE, "r", encoding="utf-8") as f:
+
+            with open(
+                SUBJECTS_FILE,
+                "r",
+                encoding="utf-8"
+            ) as file:
+
                 try:
-                    all_subjects = json.load(f)
+                    all_subjects = json.load(file)
                 except:
                     all_subjects = {}
+
         else:
+
             all_subjects = {}
 
-        # Save subjects for this semester
         all_subjects[semester] = subjects
 
-        with open(SUBJECTS_FILE, "w", encoding="utf-8") as f:
-            json.dump(all_subjects, f, indent=4, ensure_ascii=False)
+        with open(
+            SUBJECTS_FILE,
+            "w",
+            encoding="utf-8"
+        ) as file:
+
+            json.dump(
+                all_subjects,
+                file,
+                indent=4,
+                ensure_ascii=False
+            )
 
         return jsonify({
-            "success": True,
-            "message": "Subjects saved successfully."
+            "success": True
         })
 
     except Exception as e:
+
         return jsonify({
+
             "success": False,
             "error": str(e)
+
         })
-# =============================
+
+
+# ==================================================
 # GET SUBJECTS
-# =============================
+# ==================================================
+
 @app.route("/get_subjects/<semester>")
 def get_subjects(semester):
+
     try:
 
         if not os.path.exists(SUBJECTS_FILE):
             return jsonify([])
 
-        with open(SUBJECTS_FILE, "r", encoding="utf-8") as f:
+        with open(
+            SUBJECTS_FILE,
+            "r",
+            encoding="utf-8"
+        ) as file:
+
             try:
-                all_subjects = json.load(f)
+                all_subjects = json.load(file)
             except:
                 all_subjects = {}
 
-        return jsonify(all_subjects.get(semester, []))
+        return jsonify(
+            all_subjects.get(semester, [])
+        )
 
     except Exception as e:
+
+        return jsonify({
+
+            "success": False,
+            "error": str(e)
+
+        })
+        # ==================================================
+# SAVE STUDENT
+# ==================================================
+
+@app.route("/save_student", methods=["POST"])
+def save_student():
+
+    try:
+
+        data = request.get_json()
+
+        semester = data.get("semester")
+        student = data.get("student")
+
+        file_path = os.path.join(
+            STUDENT_FOLDER,
+            f"{semester}.json"
+        )
+
+        students = []
+
+        if os.path.exists(file_path):
+
+            with open(
+                file_path,
+                "r",
+                encoding="utf-8"
+            ) as file:
+
+                try:
+                    students = json.load(file)
+                except:
+                    students = []
+
+        # Prevent duplicate enrollment
+        for s in students:
+
+            if s["enrollment"] == student["enrollment"]:
+
+                return jsonify({
+                    "success": False,
+                    "message": "Enrollment already exists."
+                })
+
+        students.append(student)
+
+        with open(
+            file_path,
+            "w",
+            encoding="utf-8"
+        ) as file:
+
+            json.dump(
+                students,
+                file,
+                indent=4,
+                ensure_ascii=False
+            )
+
+        return jsonify({"success": True})
+
+    except Exception as e:
+
         return jsonify({
             "success": False,
             "error": str(e)
         })
 
 
-# =============================
+# ==================================================
+# GET STUDENTS
+# ==================================================
+
+@app.route("/get_students/<semester>")
+def get_students(semester):
+
+    try:
+
+        file_path = os.path.join(
+            STUDENT_FOLDER,
+            f"{semester}.json"
+        )
+
+        if not os.path.exists(file_path):
+            return jsonify([])
+
+        with open(
+            file_path,
+            "r",
+            encoding="utf-8"
+        ) as file:
+
+            try:
+                students = json.load(file)
+            except:
+                students = []
+
+        return jsonify(students)
+
+    except Exception as e:
+
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        })
+
+
+# ==================================================
+# DELETE STUDENT
+# ==================================================
+
+@app.route("/delete_student", methods=["POST"])
+def delete_student():
+
+    try:
+
+        data = request.get_json()
+
+        semester = data.get("semester")
+        enrollment = data.get("enrollment")
+
+        file_path = os.path.join(
+            STUDENT_FOLDER,
+            f"{semester}.json"
+        )
+
+        if not os.path.exists(file_path):
+
+            return jsonify({"success": False})
+
+        with open(
+            file_path,
+            "r",
+            encoding="utf-8"
+        ) as file:
+
+            students = json.load(file)
+
+        students = [
+
+            student
+
+            for student in students
+
+            if student["enrollment"] != enrollment
+
+        ]
+
+        with open(
+            file_path,
+            "w",
+            encoding="utf-8"
+        ) as file:
+
+            json.dump(
+                students,
+                file,
+                indent=4,
+                ensure_ascii=False
+            )
+
+        return jsonify({"success": True})
+
+    except Exception as e:
+
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        })
+
+# ==================================================
+# UPDATE STUDENT
+# ==================================================
+
+@app.route("/update_student", methods=["POST"])
+def update_student():
+
+    try:
+
+        data = request.get_json()
+
+        semester = data.get("semester")
+        enrollment = data.get("enrollment")
+        student_name = data.get("studentName")
+
+        # -----------------------------
+        # Update Student File
+        # -----------------------------
+
+        student_file = os.path.join(
+            STUDENT_FOLDER,
+            f"{semester}.json"
+        )
+
+        if os.path.exists(student_file):
+
+            with open(student_file, "r", encoding="utf-8") as file:
+                students = json.load(file)
+
+            for student in students:
+
+                if student["enrollment"] == enrollment:
+                    student["studentName"] = student_name
+
+            with open(student_file, "w", encoding="utf-8") as file:
+                json.dump(
+                    students,
+                    file,
+                    indent=4,
+                    ensure_ascii=False
+                )
+
+        # -----------------------------
+        # Update Class Activity File
+        # -----------------------------
+
+        if os.path.exists(CLASS_ACTIVITY_FILE):
+
+            with open(CLASS_ACTIVITY_FILE, "r", encoding="utf-8") as file:
+                activities = json.load(file)
+
+            for activity in activities:
+
+                if (
+                    activity["semester"] == semester and
+                    activity["enrollment"] == enrollment
+                ):
+                    activity["studentName"] = student_name
+
+            with open(CLASS_ACTIVITY_FILE, "w", encoding="utf-8") as file:
+                json.dump(
+                    activities,
+                    file,
+                    indent=4,
+                    ensure_ascii=False
+                )
+
+        return jsonify({
+            "success": True
+        })
+
+    except Exception as e:
+
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        })
+
+# ==================================================
 # SAVE CLASS ACTIVITY
-# =============================
+# ==================================================
 @app.route("/save_class_activity", methods=["POST"])
 def save_class_activity():
 
     try:
+        data = request.get_json()
 
-        new_data = request.get_json()
+        semester = data.get("semester")
+        faculty = data.get("faculty")
+        date = data.get("date")
+        activity_data = data.get("activityData", [])
 
         if os.path.exists(CLASS_ACTIVITY_FILE):
-
-            with open(CLASS_ACTIVITY_FILE, "r", encoding="utf-8") as f:
+            with open(CLASS_ACTIVITY_FILE, "r", encoding="utf-8") as file:
                 try:
-                    all_data = json.load(f)
+                    all_data = json.load(file)
                 except:
                     all_data = []
-
         else:
-
             all_data = []
 
-        all_data.append(new_data)
+        # Remove old records for this semester (fresh overwrite style)
+        all_data = [
+            r for r in all_data
+            if r.get("semester") != semester
+        ]
 
-        with open(CLASS_ACTIVITY_FILE, "w", encoding="utf-8") as f:
-            json.dump(
-                all_data,
-                f,
-                indent=4,
-                ensure_ascii=False
-            )
+        # Add new structured data
+        for student in activity_data:
+            all_data.append({
+                "semester": semester,
+                "studentName": student["studentName"],
+                "enrollment": student["enrollment"],
+                "faculty": faculty,
+                "date": date,
+                "subjects": student["subjects"]
+            })
+
+        with open(CLASS_ACTIVITY_FILE, "w", encoding="utf-8") as file:
+            json.dump(all_data, file, indent=4, ensure_ascii=False)
 
         return jsonify({
             "success": True,
@@ -238,15 +645,257 @@ def save_class_activity():
         })
 
     except Exception as e:
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        })
+# ==================================================
+# DELETE CLASS ACTIVITY SUBJECT
+# ==================================================
+
+@app.route("/delete_class_activity", methods=["POST"])
+def delete_class_activity():
+
+    try:
+
+        data = request.get_json()
+
+        semester = data.get("semester")
+        enrollment = data.get("enrollment")
+        subject = data.get("subject")
+
+        if not os.path.exists(CLASS_ACTIVITY_FILE):
+
+            return jsonify({"success": True})
+
+        with open(
+            CLASS_ACTIVITY_FILE,
+            "r",
+            encoding="utf-8"
+        ) as file:
+
+            try:
+                all_data = json.load(file)
+            except:
+                all_data = []
+
+        for record in all_data:
+
+            if (
+                record.get("semester") == semester
+                and
+                record.get("enrollment") == enrollment
+            ):
+
+                record["subjects"] = [
+
+                    item
+
+                    for item in record.get("subjects", [])
+
+                    if item.get("subject") != subject
+
+                ]
+
+                break
+
+        with open(
+            CLASS_ACTIVITY_FILE,
+            "w",
+            encoding="utf-8"
+        ) as file:
+
+            json.dump(
+                all_data,
+                file,
+                indent=4,
+                ensure_ascii=False
+            )
+
+        return jsonify({"success": True})
+
+    except Exception as e:
 
         return jsonify({
             "success": False,
             "error": str(e)
         })
-        
-# =============================
+
+# ==================================================
+# GET CLASS ACTIVITY
+# ==================================================
+
+@app.route("/get_class_activity/<semester>/<enrollment>")
+def get_class_activity(semester, enrollment):
+
+    try:
+
+        if not os.path.exists(CLASS_ACTIVITY_FILE):
+            return jsonify({})
+
+        with open(
+            CLASS_ACTIVITY_FILE,
+            "r",
+            encoding="utf-8"
+        ) as file:
+
+            try:
+                all_data = json.load(file)
+            except:
+                all_data = []
+
+        for record in all_data:
+
+            if (
+                record.get("semester") == semester
+                and
+                record.get("enrollment") == enrollment
+            ):
+
+                return jsonify(record)
+
+        return jsonify({})
+
+    except Exception as e:
+
+        return jsonify({
+
+            "success": False,
+            "error": str(e)
+
+        })
+
+# ==================================================
+# ADD ATTENDANCE STUDENTS
+# ==================================================
+
+@app.route("/add_attendance_students", methods=["POST"])
+def add_attendance_students():
+
+    try:
+
+        data = request.get_json()
+
+        semester = data.get("semester")
+        first_enrollment = data.get("enrollment")
+        subjects = data.get("subjects", [])
+
+        student_file = os.path.join(
+            STUDENT_FOLDER,
+            f"{semester}.json"
+        )
+
+        if not os.path.exists(student_file):
+
+            return jsonify({
+                "success": False,
+                "error": "Student list not found."
+            })
+
+        with open(
+            student_file,
+            "r",
+            encoding="utf-8"
+        ) as file:
+
+            students = json.load(file)
+
+        if os.path.exists(CLASS_ACTIVITY_FILE):
+
+            with open(
+                CLASS_ACTIVITY_FILE,
+                "r",
+                encoding="utf-8"
+            ) as file:
+
+                try:
+                    all_data = json.load(file)
+                except:
+                    all_data = []
+
+        else:
+
+            all_data = []
+
+        for student in students:
+
+            if student["enrollment"] == first_enrollment:
+                continue
+
+            already_exists = False
+
+            for record in all_data:
+
+                if (
+                    record.get("semester") == semester
+                    and
+                    record.get("enrollment") == student["enrollment"]
+                ):
+
+                    already_exists = True
+                    break
+
+            if already_exists:
+                continue
+
+            subject_rows = []
+
+            for subject in subjects:
+
+                subject_rows.append({
+
+                    "subject": subject,
+
+                    "assignment": 0,
+                    "practical": 0,
+                    "project": 0,
+                    "total": 0,
+                    "percentage": "0%",
+                    "remarks": "Fail"
+
+                })
+
+            all_data.append({
+
+                "semester": semester,
+                "studentName": student["studentName"],
+                "enrollment": student["enrollment"],
+                "faculty": "",
+                "date": "",
+                "subjects": subject_rows
+
+            })
+
+        with open(
+            CLASS_ACTIVITY_FILE,
+            "w",
+            encoding="utf-8"
+        ) as file:
+
+            json.dump(
+                all_data,
+                file,
+                indent=4,
+                ensure_ascii=False
+            )
+
+        return jsonify({
+            "success": True
+        })
+
+    except Exception as e:
+
+        return jsonify({
+
+            "success": False,
+            "error": str(e)
+
+        })
+
+# ==================================================
 # DOWNLOAD CLASS ACTIVITY EXCEL
-# =============================
+# ==================================================
+
 @app.route("/download_class_activity")
 def download_class_activity():
 
@@ -255,8 +904,16 @@ def download_class_activity():
         if not os.path.exists(CLASS_ACTIVITY_FILE):
             return "No Class Activity Data Available"
 
-        with open(CLASS_ACTIVITY_FILE, "r", encoding="utf-8") as f:
-            all_data = json.load(f)
+        with open(
+            CLASS_ACTIVITY_FILE,
+            "r",
+            encoding="utf-8"
+        ) as file:
+
+            try:
+                all_data = json.load(file)
+            except:
+                all_data = []
 
         wb = Workbook()
         ws = wb.active
@@ -281,20 +938,16 @@ def download_class_activity():
         # Data
         for record in all_data:
 
-            semester = record.get("semester", "")
-            student_name = record.get("studentName", "")
-            enrollment = record.get("enrollment", "")
-            faculty = record.get("faculty", "")
-            date = record.get("date", "")
-
             for subject in record.get("subjects", []):
 
                 ws.append([
-                    semester,
-                    student_name,
-                    enrollment,
-                    faculty,
-                    date,
+
+                    record.get("semester", ""),
+                    record.get("studentName", ""),
+                    record.get("enrollment", ""),
+                    record.get("faculty", ""),
+                    record.get("date", ""),
+
                     subject.get("subject", ""),
                     subject.get("assignment", ""),
                     subject.get("practical", ""),
@@ -302,12 +955,17 @@ def download_class_activity():
                     subject.get("total", ""),
                     subject.get("percentage", ""),
                     subject.get("remarks", "")
+
                 ])
 
-        file_name = "class_activity.xlsx"
-        wb.save(file_name)
+        excel_file = "class_activity.xlsx"
 
-        return send_file(file_name, as_attachment=True)
+        wb.save(excel_file)
+
+        return send_file(
+            excel_file,
+            as_attachment=True
+        )
 
     except Exception as e:
 
@@ -316,8 +974,15 @@ def download_class_activity():
             "error": str(e)
         })
 
-# =============================
+
+# ==================================================
 # RUN SERVER
-# =============================
+# ==================================================
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0",port=5000,debug=True)
+
+    app.run(
+        host="0.0.0.0",
+        port=5000,
+        debug=True
+    )

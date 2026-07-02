@@ -53,66 +53,81 @@
 
         </section>
 
-        <!-- Semester Buttons -->
+<!-- Main Buttons -->
 
-        <section class="semester-section">
+<section class="main-buttons">
 
-            <a href="/attendance/semester1">
-                <button>Semester 1</button>
-            </a>
+    <button onclick="openAttendancePopup()">
+        ATTENDANCE
+    </button>
 
-            <a href="/attendance/semester2">
-                <button>Semester 2</button>
-            </a>
-
-            <a href="/attendance/semester3">
-                <button>Semester 3</button>
-            </a>
-
-            <a href="/attendance/semester4">
-                <button>Semester 4</button>
-            </a>
-
-            <a href="/attendance/semester5">
-                <button>Semester 5</button>
-            </a>
-
-            <a href="/attendance/semester6">
-                <button>Semester 6</button>
-            </a>
-
-        </section>
-		
-		<!-- Class Activity Buttons -->
-
-<section class="semester-section">
-
-    <a href="/class_activity/semester1">
-        <button>Class Activity - Semester 1</button>
-    </a>
-
-    <a href="/class_activity/semester2">
-        <button>Class Activity - Semester 2</button>
-    </a>
-
-    <a href="/class_activity/semester3">
-        <button>Class Activity - Semester 3</button>
-    </a>
-
-    <a href="/class_activity/semester4">
-        <button>Class Activity - Semester 4</button>
-    </a>
-
-    <a href="/class_activity/semester5">
-        <button>Class Activity - Semester 5</button>
-    </a>
-
-    <a href="/class_activity/semester6">
-        <button>Class Activity - Semester 6</button>
-    </a>
+    <button onclick="openActivityPopup()">
+        CLASS ACTIVITY
+    </button>
 
 </section>
 
+<!-- Attendance Popup -->
+
+<div id="attendancePopup" class="popup">
+
+    <div class="popup-content">
+
+        <h2>Select Semester</h2>
+
+        <a href="/attendance/semester1"><button>Semester 1</button></a>
+        <a href="/attendance/semester2"><button>Semester 2</button></a>
+        <a href="/attendance/semester3"><button>Semester 3</button></a>
+        <a href="/attendance/semester4"><button>Semester 4</button></a>
+        <a href="/attendance/semester5"><button>Semester 5</button></a>
+        <a href="/attendance/semester6"><button>Semester 6</button></a>
+
+        <button onclick="closeAttendancePopup()">Close</button>
+
+    </div>
+
+</div>
+
+<!-- Class Activity Popup -->
+
+<div id="activityPopup" class="popup">
+
+    <div class="popup-content">
+
+        <h2>Select Semester</h2>
+
+        <a href="/class_activity/semester1"><button>Semester 1</button></a>
+        <a href="/class_activity/semester2"><button>Semester 2</button></a>
+        <a href="/class_activity/semester3"><button>Semester 3</button></a>
+        <a href="/class_activity/semester4"><button>Semester 4</button></a>
+        <a href="/class_activity/semester5"><button>Semester 5</button></a>
+        <a href="/class_activity/semester6"><button>Semester 6</button></a>
+
+        <button onclick="closeActivityPopup()">Close</button>
+
+    </div>
+
+</div>
+
+<script>
+
+function openAttendancePopup(){
+    document.getElementById("attendancePopup").style.display = "flex";
+}
+
+function closeAttendancePopup(){
+    document.getElementById("attendancePopup").style.display = "none";
+}
+
+function openActivityPopup(){
+    document.getElementById("activityPopup").style.display = "flex";
+}
+
+function closeActivityPopup(){
+    document.getElementById("activityPopup").style.display = "none";
+}
+
+</script>
         <!-- Footer -->
 
         <footer>

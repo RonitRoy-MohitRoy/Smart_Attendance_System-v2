@@ -1,0 +1,26 @@
+{
+    "semester": "semester1",
+    "subject": "CPD",
+    "faculty": "Khan Sir",
+    "date": "2026-07-02",
+    "students": [
+        {
+            "srNo": "1",
+            "studentName": "Ronit Choudhary",
+            "enrollment": "101",
+            "status": "Present"
+        },
+        {
+            "srNo": "2",
+            "studentName": "Arvind Sing",
+            "enrollment": "102",
+            "status": "Absent"
+        },
+        {
+            "srNo": "3",
+            "studentName": "Suhal Kumar",
+            "enrollment": "103",
+            "status": "Present"
+        }
+    ]
+}

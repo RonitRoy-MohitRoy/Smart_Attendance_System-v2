@@ -333,23 +333,32 @@ header h3{
 /* Individual Colors */
 
 .buttons button:nth-child(1){
-    background:#0d6efd;
+    background:#8E44AD;   /* Manage Subjects */
 }
 
 .buttons button:nth-child(2){
-    background:#198754;
+    background:#3498DB;   /* Enter Student Name */
 }
 
 .buttons button:nth-child(3){
-    background:#6f42c1;
+    background:#F39C12;   /* Edit Student Name */
 }
 
 .buttons button:nth-child(4){
-    background:#343a40;
+    background:#27AE60;   /* Save Data */
 }
 
 .buttons button:nth-child(5){
-    background:#dc3545;
+    background:#16A085;   /* Download Excel */
+}
+
+.buttons button:nth-child(6){
+    background:#34495E;   /* Print */
+}
+
+.buttons button:nth-child(7){
+    background:#E74C3C;   /* Home */
+}
 }/* =====================================
    CLASS ACTIVITY SYSTEM CSS
    Part 3 (Final)

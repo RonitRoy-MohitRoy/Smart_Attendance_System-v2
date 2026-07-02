@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Class Activity</title>
+    <title>Class Activity Management</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/class_activity.css') }}">
@@ -26,7 +26,8 @@
     <header>
 
         <img src="{{ url_for('static', filename='images/logo.jpg') }}"
-             class="logo">
+             class="logo"
+             alt="College Logo">
 
         <h1>VEERAYATAN POLYTECHNIC</h1>
 
@@ -37,7 +38,7 @@
     </header>
 
     <!-- ==========================
-         SEMESTER TITLE
+         SEMESTER
     =========================== -->
 
     <div class="semester-title">
@@ -47,36 +48,16 @@
     </div>
 
     <!-- ==========================
-         STUDENT DETAILS
+         FACULTY & DATE
     =========================== -->
 
     <div class="info-section">
 
         <div>
 
-            <label>Student Name</label>
-
-            <input
-                type="text"
-                id="studentName"
-                placeholder="Enter Student Name">
-
-        </div>
-
-        <div>
-
-            <label>Enrollment Number</label>
-
-            <input
-                type="text"
-                id="enrollment"
-                placeholder="Enter Enrollment Number">
-
-        </div>
-
-        <div>
-
-            <label>Faculty Name</label>
+            <label for="faculty">
+                Faculty Name
+            </label>
 
             <input
                 type="text"
@@ -87,80 +68,15 @@
 
         <div>
 
-            <label>Date</label>
+            <label for="date">
+                Date
+            </label>
 
             <input
                 type="date"
                 id="date">
 
         </div>
-
-    </div>
-
-    <!-- ==========================
-         MAXIMUM MARKS
-    =========================== -->
-
-    <div class="marks-config">
-
-        <div>
-
-            <label>Assignment (Out Of)</label>
-
-            <input
-                type="number"
-                id="assignmentMax"
-                min="1"
-                value="20">
-
-        </div>
-
-        <div>
-
-            <label>Practical (Out Of)</label>
-
-            <input
-                type="number"
-                id="practicalMax"
-                min="1"
-                value="30">
-
-        </div>
-
-        <div>
-
-            <label>Project (Out Of)</label>
-
-            <input
-                type="number"
-                id="projectMax"
-                min="1"
-                value="20">
-
-        </div>
-
-        <div>
-
-            <button onclick="applyMarks()">
-
-                Apply Marks
-
-            </button>
-
-        </div>
-
-    </div>
-	<!-- ==========================
-         SEARCH STUDENT
-    =========================== -->
-
-    <div class="search-section">
-
-        <button onclick="searchStudent()">
-
-            Search Student
-
-        </button>
 
     </div>
 
@@ -176,6 +92,12 @@
 
                 <th>Sr. No.</th>
 
+                <th>Student Name</th>
+
+                <th style="display:none;">
+                    Enrollment
+                </th>
+
                 <th>Subject</th>
 
                 <th id="assignmentHeading">
@@ -189,8 +111,7 @@
                 <th id="projectHeading">
                     Project (20)
                 </th>
-
-                <th>Total</th>
+				<th>Total</th>
 
                 <th>Percentage</th>
 
@@ -202,25 +123,16 @@
 
         </thead>
 
-        <!--
-            Subjects will be loaded automatically
-            according to the selected semester.
-
-            Example:
-            Semester 1 -> Maths, Physics...
-            Semester 2 -> Chemistry, SL...
-        -->
-
         <tbody id="activityBody">
 
-            <!-- JavaScript will insert rows here -->
+            <!-- JavaScript will create rows here -->
 
         </tbody>
 
     </table>
 
     <!-- ==========================
-         SUBJECT INFORMATION
+         INFORMATION
     =========================== -->
 
     <div class="subject-info">
@@ -229,50 +141,69 @@
 
             <strong>Note:</strong>
 
-            Subjects are added only once for each
-            semester.
+            Select the first student using
+            <strong>Enter Student Name</strong>.
 
-            After saving, they will automatically
-            appear every time this semester is opened.
-
-            If a wrong subject is added, use
-            <strong>Add / Edit Subject</strong>
-            to correct it.
+            After adding subjects for the first student,
+            use <strong>Attendance Add</strong> to automatically
+            create the remaining students with the same subjects.
 
         </p>
 
     </div>
-	<!-- ==========================
+
+    <!-- ==========================
          ACTION BUTTONS
     =========================== -->
 
     <div class="buttons">
 
-        <button onclick="manageSubject()">
+        <button
+            id="manageSubjectBtn"
+            onclick="manageSubject()"
+            disabled>
 
             Manage Subjects
 
         </button>
 
-        <button onclick="saveActivity()">
+        
+		<button 
+		    onclick="selectTemplateStudent()">
+			
+            Select Template Student
+			
+        </button>
+
+        <button
+            onclick="attendanceAdd()">
+
+            Attendance Add
+
+        </button>
+
+        <button
+            onclick="saveActivity()">
 
             Save Data
 
         </button>
-
-        <button onclick="downloadActivity()">
+		<button
+            onclick="downloadActivity()">
 
             Download Excel
 
         </button>
 
-        <button onclick="window.print()">
+        <button
+            onclick="printActivity()">
 
             Print
 
         </button>
 
-        <button onclick="location.href='/'">
+        <button
+            onclick="goHome()">
 
             Home
 
@@ -290,23 +221,42 @@
 
             <strong>Instructions:</strong>
 
-            Add the subjects only once for each semester.
-            They will be saved permanently for that semester.
-            If a subject is entered incorrectly, use the
-            <strong>Add / Edit Subject</strong> button to
-            update or remove it.
+            Select only the first student manually.
+
+            Add all required subjects once.
+
+            Click <strong>Attendance Add</strong> to automatically
+            create Class Activity records for all remaining students.
+
+            Enter marks and click
+            <strong>Save Data</strong> to save all records.
 
         </p>
 
     </div>
 
 </div>
-
 <!-- ==========================
      JAVASCRIPT
 ========================== -->
 
 <script src="{{ url_for('static', filename='js/class_activity.js') }}"></script>
+
+<script>
+
+function printActivity() {
+
+    window.print();
+
+}
+
+function goHome() {
+
+    window.location.href = "/";
+
+}
+
+</script>
 
 </body>
 

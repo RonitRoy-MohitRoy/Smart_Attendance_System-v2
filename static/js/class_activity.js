@@ -1,38 +1,61 @@
-/* =========================================
+/* ==========================================================
    CLASS ACTIVITY MANAGEMENT SYSTEM
-   Part 1A
-========================================= */
+   VERSION 2.0
+   PART 1
+   Global Variables + Page Load + Utility Functions
+========================================================== */
 
-// =========================================
+// ==========================================================
+// MARK SETTINGS
+// ==========================================================
+
+const assignmentMax = 20;
+const practicalMax = 30;
+const projectMax = 20;
+
+
+// ==========================================================
 // GLOBAL VARIABLES
-// =========================================
+// ==========================================================
 
-let assignmentMax = 20;
-let practicalMax = 30;
-let projectMax = 20;
+let selectedStudent = null;
+
+let attendanceStudents = [];
 
 let subjectList = [];
+
 let serialNumber = 1;
 
 
-// =========================================
+// ==========================================================
 // PAGE LOAD
-// =========================================
+// ==========================================================
 
 window.onload = function () {
 
-    setTodayDate();
-
-    applyMarks();
-
-    loadSubjects();
+    initializePage();
 
 };
 
 
-// =========================================
-// SET TODAY DATE
-// =========================================
+// ==========================================================
+// INITIALIZE PAGE
+// ==========================================================
+
+function initializePage() {
+
+    setTodayDate();
+
+    resetActivityTable();
+
+    disableManageSubject();
+
+}
+
+
+// ==========================================================
+// TODAY DATE
+// ==========================================================
 
 function setTodayDate() {
 
@@ -44,251 +67,90 @@ function setTodayDate() {
 }
 
 
-// =========================================
-// APPLY MAXIMUM MARKS
-// =========================================
+// ==========================================================
+// RESET TABLE
+// ==========================================================
 
-function applyMarks() {
+function resetActivityTable() {
 
-    assignmentMax =
-        parseInt(document.getElementById("assignmentMax").value) || 20;
-
-    practicalMax =
-        parseInt(document.getElementById("practicalMax").value) || 30;
-
-    projectMax =
-        parseInt(document.getElementById("projectMax").value) || 20;
-
-    document.getElementById("assignmentHeading").innerHTML =
-        `Assignment (${assignmentMax})`;
-
-    document.getElementById("practicalHeading").innerHTML =
-        `Practical (${practicalMax})`;
-
-    document.getElementById("projectHeading").innerHTML =
-        `Project (${projectMax})`;
-
-}
-
-
-// =========================================
-// MANAGE SUBJECTS
-// =========================================
-
-function manageSubject() {
-
-    let subject =
-        prompt("Enter Subject Name");
-
-    if (subject === null) return;
-
-    subject = subject.trim();
-
-    if (subject === "") {
-
-        alert("Please enter a subject name.");
-
-        return;
-
-    }
-
-    if (subjectList.includes(subject)) {
-
-        alert("Subject already exists.");
-
-        return;
-
-    }
-
-    subjectList.push(subject);
-
-    addSubjectRow(subject);
-	
-	saveSubjects();
-
-}
-
-
-// =========================================
-// ADD SUBJECT ROW
-// =========================================
-
-function addSubjectRow(subject) {
-
-    const tbody =
-        document.getElementById("activityBody");
-
-    const row =
-        document.createElement("tr");
-
-    row.innerHTML = `
-        <td>${serialNumber++}</td>
-
-        <td class="subject-name">${subject}</td>
-
-        <td>
-            <input type="number"
-                   min="0"
-                   max="${assignmentMax}"
-                   value="0"
-                   oninput="calculateRow(this)">
-        </td>
-
-        <td>
-            <input type="number"
-                   min="0"
-                   max="${practicalMax}"
-                   value="0"
-                   oninput="calculateRow(this)">
-        </td>
-
-        <td>
-            <input type="number"
-                   min="0"
-                   max="${projectMax}"
-                   value="0"
-                   oninput="calculateRow(this)">
-        </td>
-
-<td class="total-cell">0</td>
-
-        <td class="percentage-cell">0%</td>
-
-        <td class="remarks-cell">-</td>
-
-        <td>
-            <button
-                class="remove-btn"
-                onclick="removeSubject(this)">
-                Remove
-            </button>
-        </td>
-    `;
-
-    tbody.appendChild(row);
-
-}
-
-
-// =========================================
-// CALCULATE TOTAL / PERCENTAGE
-// =========================================
-
-function calculateRow(input){
-
-    const row = input.closest("tr");
-
-    const inputs = row.querySelectorAll("input");
-
-    const assignment =
-        parseFloat(inputs[0].value) || 0;
-
-    const practical =
-        parseFloat(inputs[1].value) || 0;
-
-    const project =
-        parseFloat(inputs[2].value) || 0;
-
-    const total =
-        assignment + practical + project;
-
-    const maxTotal =
-        assignmentMax +
-        practicalMax +
-        projectMax;
-
-    const percentage =
-        (total / maxTotal) * 100;
-
-    row.querySelector(".total-cell").innerHTML =
-        total;
-
-    row.querySelector(".percentage-cell").innerHTML =
-        percentage.toFixed(2) + "%";
-
-    let remarks = "Fail";
-
-    if (percentage >= 90){
-
-        remarks = "Excellent";
-
-    }
-    else if (percentage >= 75){
-
-        remarks = "Very Good";
-
-    }
-    else if (percentage >= 60){
-
-        remarks = "Good";
-
-    }
-    else if (percentage >= 35){
-
-        remarks = "Pass";
-
-    }
-
-    row.querySelector(".remarks-cell").innerHTML =
-        remarks;
-
-}
-
-
-// =========================================
-// REMOVE SUBJECT
-// =========================================
-
-function removeSubject(button){
-
-    if(!confirm("Remove this subject?")){
-
-        return;
-
-    }
-
-    const row =
-        button.closest("tr");
-
-    const subject =
-        row.cells[1].innerText;
-
-    subjectList =
-        subjectList.filter(item => item !== subject);
-
-    row.remove();
-
-    updateSerialNumbers();
-	
-	saveSubjects();
-
-}
-
-
-// =========================================
-// UPDATE SERIAL NUMBER
-// =========================================
-
-function updateSerialNumbers(){
+    document.getElementById("activityBody").innerHTML = "";
 
     serialNumber = 1;
 
-    document
-        .querySelectorAll("#activityBody tr")
-        .forEach(row => {
+}
 
-            row.cells[0].innerHTML =
-                serialNumber++;
 
-        });
+// ==========================================================
+// CLEAR SUBJECT LIST
+// ==========================================================
+
+function clearSubjects() {
+
+    subjectList = [];
 
 }
 
-// =========================================
-// LOAD SUBJECTS
-// =========================================
 
-async function loadSubjects() {
+// ==========================================================
+// ENABLE MANAGE SUBJECT BUTTON
+// ==========================================================
+
+function enableManageSubject() {
+
+    document.getElementById(
+        "manageSubjectBtn"
+    ).disabled = false;
+
+}
+
+
+// ==========================================================
+// DISABLE MANAGE SUBJECT BUTTON
+// ==========================================================
+
+function disableManageSubject() {
+
+    document.getElementById(
+        "manageSubjectBtn"
+    ).disabled = true;
+
+}
+
+
+// ==========================================================
+// CLEAR COMPLETE PAGE
+// ==========================================================
+
+function clearCompleteActivity() {
+
+    resetActivityTable();
+
+    clearSubjects();
+
+    selectedStudent = null;
+
+    disableManageSubject();
+
+}
+
+
+// ==========================================================
+// END OF PART 1
+// ==========================================================
+
+console.log(
+    "Class Activity JS V2 - Part 1 Loaded Successfully"
+);
+/* ==========================================================
+   PART 2
+   Student Selection + Subject Management
+========================================================== */
+
+// ==========================================================
+// ENTER STUDENT
+// ==========================================================
+
+async function selectTemplateStudent() {
 
     const semester =
         document.getElementById("semester").innerText.trim();
@@ -296,23 +158,60 @@ async function loadSubjects() {
     try {
 
         const response =
-            await fetch(`/get_subjects/${encodeURIComponent(semester)}`);
+            await fetch(`/get_students/${semester}`);
 
-        const subjects =
+        attendanceStudents =
             await response.json();
 
-        subjectList = [];
-        serialNumber = 1;
+        if (!attendanceStudents || attendanceStudents.length === 0) {
 
-        document.getElementById("activityBody").innerHTML = "";
+            alert("No students found.");
 
-        subjects.forEach(subject => {
+            return;
 
-            subjectList.push(subject);
+        }
 
-            addSubjectRow(subject);
+        let list = "";
+
+        attendanceStudents.forEach((student, index) => {
+
+            list += `${index + 1}. ${student.studentName}\n`;
 
         });
+
+        const choice =
+            prompt("Select Template Student\n\n" + list);
+
+        if (choice === null)
+            return;
+
+        const index =
+            parseInt(choice) - 1;
+
+        if (
+            isNaN(index) ||
+            index < 0 ||
+            index >= attendanceStudents.length
+        ) {
+
+            alert("Invalid Student.");
+
+            return;
+
+        }
+
+        selectedStudent =
+            attendanceStudents[index];
+
+        resetActivityTable();
+
+        clearSubjects();
+
+        enableManageSubject();
+
+        alert(
+            "Template Student Selected.\nNow add all subjects."
+        );
 
     }
 
@@ -320,14 +219,60 @@ async function loadSubjects() {
 
         console.error(error);
 
+        alert("Unable to load students.");
+
     }
+
+}
+// ==========================================================
+// MANAGE SUBJECTS
+// ==========================================================
+
+function manageSubject() {
+
+    if (!selectedStudent) {
+
+        alert("Select first student.");
+
+        return;
+
+    }
+
+    const subject =
+        prompt("Enter Subject Name");
+
+    if (subject === null)
+        return;
+
+    const newSubject =
+        subject.trim();
+
+    if (newSubject === "") {
+
+        alert("Subject cannot be empty.");
+
+        return;
+
+    }
+
+    if (subjectList.includes(newSubject)) {
+
+        alert("Subject already exists.");
+
+        return;
+
+    }
+
+    subjectList.push(newSubject);
+
+    addSubjectRow(newSubject);
 
 }
 
 
-// =========================================
-// SAVE SUBJECTS
-// =========================================
+// ==========================================================
+// SAVE SUBJECT LIST
+// ==========================================================
 
 async function saveSubjects() {
 
@@ -336,12 +281,14 @@ async function saveSubjects() {
 
     try {
 
-        const response = await fetch("/save_subjects", {
+        await fetch("/save_subjects", {
 
             method: "POST",
 
             headers: {
+
                 "Content-Type": "application/json"
+
             },
 
             body: JSON.stringify({
@@ -354,46 +301,213 @@ async function saveSubjects() {
 
         });
 
-        const result = await response.json();
-
-        if (result.success) {
-
-            alert("Subjects saved successfully.");
-
-        }
-
-        else {
-
-            alert(result.error);
-
-        }
-
     }
 
     catch (error) {
 
         console.error(error);
 
-        alert("Unable to save subjects.");
-
     }
 
 }
 
-// =========================================
-// SAVE CLASS ACTIVITY
-// =========================================
 
+// ==========================================================
+// END OF PART 2
+// ==========================================================
+
+console.log(
+    "Class Activity JS V2 - Part 2 Loaded Successfully"
+);
+
+/* ==========================================================
+   PART 3
+   Import Students From Attendance
+========================================================== */
+// ==========================================================
+// ATTENDANCE ADD
+// ==========================================================
+
+function attendanceAdd() {
+
+    if (!selectedStudent) {
+
+        alert("Please select template student first.");
+
+        return;
+
+    }
+
+    if (subjectList.length === 0) {
+
+        alert("Please add subjects first.");
+
+        return;
+
+    }
+
+    resetActivityTable();
+
+    attendanceStudents.forEach(student => {
+
+        subjectList.forEach(subject => {
+
+            addStudentSubjectRow(student, subject);
+
+        });
+
+    });
+
+    alert("Attendance students imported successfully.");
+
+}
+// ==========================================================
+// ADD STUDENT + SUBJECT ROW
+// ==========================================================
+
+function addStudentSubjectRow(student, subject) {
+
+    const tbody =
+        document.getElementById("activityBody");
+
+    const row =
+        document.createElement("tr");
+
+    row.innerHTML = `
+
+<td>${serialNumber++}</td>
+
+<td class="student-name">
+${student.studentName}
+</td>
+
+<td class="enrollment" style="display:none;">
+${student.enrollment}
+</td>
+
+<td class="subject-name">
+${subject}
+</td>
+
+<td>
+<input
+type="number"
+min="0"
+max="${assignmentMax}"
+value="0"
+oninput="calculateRow(this)">
+</td>
+
+<td>
+<input
+type="number"
+min="0"
+max="${practicalMax}"
+value="0"
+oninput="calculateRow(this)">
+</td>
+
+<td>
+<input
+type="number"
+min="0"
+max="${projectMax}"
+value="0"
+oninput="calculateRow(this)">
+</td>
+
+<td class="total-cell">0</td>
+
+<td class="percentage-cell">0%</td>
+
+<td class="remarks-cell">Fail</td>
+
+<td>
+
+<button
+class="remove-btn"
+onclick="removeSubject(this)">
+Remove
+</button>
+
+</td>
+
+`;
+
+    tbody.appendChild(row);
+
+}
+function addSubjectRow(subject) {
+
+    if (!selectedStudent)
+        return;
+
+    addStudentSubjectRow(selectedStudent, subject);
+
+}
+// ==========================================================
+// CALCULATE MARKS
+// ==========================================================
+
+function calculateRow(input) {
+
+    const row = input.closest("tr");
+
+    const inputs = row.querySelectorAll("input");
+
+    const assignment = Number(inputs[0].value) || 0;
+    const practical = Number(inputs[1].value) || 0;
+    const project = Number(inputs[2].value) || 0;
+
+    const total = assignment + practical + project;
+
+    const max = assignmentMax + practicalMax + projectMax;
+
+    const percentage = (total / max) * 100;
+
+    row.querySelector(".total-cell").innerText = total;
+
+    row.querySelector(".percentage-cell").innerText =
+        percentage.toFixed(2) + "%";
+
+    let remarks = "Fail";
+
+    if (percentage >= 90)
+        remarks = "Excellent";
+
+    else if (percentage >= 75)
+        remarks = "Very Good";
+
+    else if (percentage >= 60)
+        remarks = "Good";
+
+    else if (percentage >= 35)
+        remarks = "Pass";
+
+    row.querySelector(".remarks-cell").innerText = remarks;
+
+}
+
+// ==========================================================
+// END OF PART 3
+// ==========================================================
+
+console.log(
+    "Class Activity JS V2 - Part 3 Loaded Successfully"
+);
+
+/* ==========================================================
+   PART 4
+   Save + Load Class Activity
+========================================================== */
+
+// ==========================================================
+// SAVE CLASS ACTIVITY
+// ==========================================================
 async function saveActivity() {
 
     const semester =
         document.getElementById("semester").innerText.trim();
-
-    const studentName =
-        document.getElementById("studentName").value.trim();
-
-    const enrollment =
-        document.getElementById("enrollment").value.trim();
 
     const faculty =
         document.getElementById("faculty").value.trim();
@@ -401,166 +515,219 @@ async function saveActivity() {
     const date =
         document.getElementById("date").value;
 
-    if (
-        studentName === "" ||
-        enrollment === "" ||
-        faculty === "" ||
-        date === ""
-    ) {
-
-        alert("Please fill all student details.");
-
+    if (faculty === "") {
+        alert("Enter Faculty Name.");
         return;
+    }
+
+    // ==============================
+    // GROUP DATA BY STUDENT
+    // ==============================
+    const studentMap = {};
+
+    document.querySelectorAll("#activityBody tr").forEach(row => {
+
+        const inputs = row.querySelectorAll("input");
+
+        const studentName =
+            row.querySelector(".student-name").innerText;
+
+        const enrollment =
+            row.querySelector(".enrollment").innerText;
+
+        const subject =
+            row.querySelector(".subject-name").innerText;
+
+        const assignment = Number(inputs[0].value) || 0;
+        const practical = Number(inputs[1].value) || 0;
+        const project = Number(inputs[2].value) || 0;
+
+        const total = assignment + practical + project;
+        const max = 70;
+        const percentage = (total / max) * 100;
+
+        let remarks = "Fail";
+        if (percentage >= 90) remarks = "Excellent";
+        else if (percentage >= 75) remarks = "Very Good";
+        else if (percentage >= 60) remarks = "Good";
+        else if (percentage >= 35) remarks = "Pass";
+
+        if (!studentMap[enrollment]) {
+            studentMap[enrollment] = {
+                studentName,
+                enrollment,
+                subjects: []
+            };
+        }
+
+        studentMap[enrollment].subjects.push({
+            subject,
+            assignment,
+            practical,
+            project,
+            total,
+            percentage: percentage.toFixed(2) + "%",
+            remarks
+        });
+    });
+
+    const activityData = Object.values(studentMap);
+
+    try {
+
+        const response = await fetch("/save_class_activity", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                semester,
+                faculty,
+                date,
+                activityData
+            })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            alert("Activity Saved Successfully.");
+        } else {
+            alert(result.error || "Save failed");
+        }
+
+    } catch (error) {
+        console.error(error);
+        alert("Server error while saving.");
+    }
+}
+// ==========================================================
+// LOAD CLASS ACTIVITY
+// ==========================================================
+
+async function loadClassActivity() {
+
+    const semester =
+        document.getElementById("semester").innerText.trim();
+
+    try {
+
+        const response =
+            await fetch(`/get_class_activity/${semester}`);
+
+        const data =
+            await response.json();
+
+        if (!data || data.length === 0)
+            return;
+
+        resetActivityTable();
+
+        data.forEach(item => {
+
+            addStudentSubjectRow(
+
+                {
+
+                    studentName:
+                        item.studentName,
+
+                    enrollment:
+                        item.enrollment
+
+                },
+
+                item.subject
+
+            );
+
+            const row =
+                document.querySelector(
+                    "#activityBody tr:last-child"
+                );
+
+            const inputs =
+                row.querySelectorAll("input");
+
+            inputs[0].value =
+                item.assignment;
+
+            inputs[1].value =
+                item.practical;
+
+            inputs[2].value =
+                item.project;
+
+            calculateRow(inputs[0]);
+
+        });
 
     }
 
-    const subjects = [];
+    catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* ==========================================================
+   END OF PART 4
+========================================================== */
+
+console.log(
+    "Class Activity JS V2 - Part 4 Loaded Successfully"
+);
+
+/* ==========================================================
+   PART 5
+   Helper Functions + Download + Print
+========================================================== */
+
+// ==========================================================
+// REMOVE SUBJECT ROW
+// ==========================================================
+
+function removeSubject(button) {
+
+    if (!confirm("Remove this subject?"))
+        return;
+
+    const row =
+        button.closest("tr");
+
+    row.remove();
+
+    updateSerialNumbers();
+
+}
+
+
+// ==========================================================
+// UPDATE SERIAL NUMBERS
+// ==========================================================
+
+function updateSerialNumbers() {
+
+    serialNumber = 1;
 
     document
         .querySelectorAll("#activityBody tr")
         .forEach(row => {
 
-            const inputs =
-                row.querySelectorAll("input");
-
-            subjects.push({
-
-                subject:
-                    row.cells[1].innerText,
-
-                assignment:
-                    inputs[0].value,
-
-                practical:
-                    inputs[1].value,
-
-                project:
-                    inputs[2].value,
-
-                total:
-                    row.querySelector(".total-cell").innerText,
-
-                percentage:
-                    row.querySelector(".percentage-cell").innerText,
-
-                remarks:
-                    row.querySelector(".remarks-cell").innerText
-
-            });
+            row.cells[0].innerText =
+                serialNumber++;
 
         });
 
-    try {
-
-        const response =
-            await fetch("/save_class_activity", {
-
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-
-                    semester,
-                    studentName,
-                    enrollment,
-                    faculty,
-                    date,
-                    subjects
-
-                })
-
-            });
-
-        const result =
-            await response.json();
-
-        if (result.success) {
-
-            alert("Class Activity Saved Successfully.");
-
-        }
-
-        else {
-
-            alert(result.error);
-
-        }
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-        alert("Unable to save data.");
-
-    }
-
-}
-
-// =========================================
-// SEARCH STUDENT
-// =========================================
-
-async function searchStudent() {
-
-    const enrollment =
-        document.getElementById("enrollment").value.trim();
-
-    if (enrollment === "") {
-
-        alert("Enter Enrollment Number.");
-
-        return;
-
-    }
-
-    try {
-
-        const response =
-            await fetch("/get_all");
-
-        const data =
-            await response.json();
-
-        const student =
-            data.find(item =>
-                item.enrollment === enrollment
-            );
-
-        if (!student) {
-
-            alert("Student not found.");
-
-            return;
-
-        }
-
-        document.getElementById("studentName").value =
-            student.studentName || "";
-
-        document.getElementById("faculty").value =
-            student.faculty || "";
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-        alert("Unable to search student.");
-
-    }
-
 }
 
 
-// =========================================
-// DOWNLOAD CLASS ACTIVITY
-// =========================================
+// ==========================================================
+// DOWNLOAD EXCEL
+// ==========================================================
 
 function downloadActivity() {
 
@@ -568,3 +735,97 @@ function downloadActivity() {
         "/download_class_activity";
 
 }
+
+
+// ==========================================================
+// PRINT PAGE
+// ==========================================================
+
+function printActivity() {
+
+    window.print();
+
+}
+
+
+// ==========================================================
+// GO TO HOME
+// ==========================================================
+
+function goHome() {
+
+    window.location.href = "/";
+
+}
+
+
+// ==========================================================
+// RESET COMPLETE PAGE
+// ==========================================================
+
+function resetActivity() {
+
+    clearCompleteActivity();
+
+    document.getElementById("faculty").value = "";
+
+    setTodayDate();
+
+}
+
+
+// ==========================================================
+// SEARCH STUDENT
+// ==========================================================
+
+function searchStudent(name) {
+
+    return attendanceStudents.find(student =>
+
+        student.studentName === name
+
+    );
+
+}
+
+
+// ==========================================================
+// CHECK SUBJECT EXISTS
+// ==========================================================
+
+function subjectExists(subject) {
+
+    return subjectList.includes(subject);
+
+}
+
+
+// ==========================================================
+// ADD SUBJECT IF NOT EXISTS
+// ==========================================================
+
+function addSubject(subject) {
+
+    if (subjectExists(subject))
+        return;
+
+    subjectList.push(subject);
+
+}
+
+
+// ==========================================================
+// END OF FILE
+// ==========================================================
+
+console.clear();
+
+console.log("====================================");
+
+console.log("Class Activity JS V2 Loaded");
+
+console.log("Version : 2.0");
+
+console.log("Status  : Ready");
+
+console.log("====================================");

@@ -27,7 +27,7 @@
 
     <!-- Semester -->
     <div class="semester-title">
-        <h2>Semester 1 Attendance</h2>
+        <h2 id="semester">{{ semester }}</h2>
     </div>
 
     <!-- Information -->
@@ -80,7 +80,7 @@
 
         <button onclick="saveData()">Save Data</button>
 
-        <button onclick="downloadData()">Download Excel</button>
+        <button onclick="downloadData('{{semester}}')"> DOWNLOAD EXCEL </button>
 
         <button onclick="window.print()">Print</button>
 
