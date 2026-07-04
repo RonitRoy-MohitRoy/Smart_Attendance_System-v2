@@ -1,0 +1,26 @@
+{
+    "semester": "SEMESTER1",
+    "subject": "HTML",
+    "faculty": "Rakesh sir",
+    "date": "2026-07-04",
+    "students": [
+        {
+            "srNo": "1",
+            "studentName": "Ronit Choudhary",
+            "enrollment": "101",
+            "status": "Present"
+        },
+        {
+            "srNo": "2",
+            "studentName": "Arvind Sing",
+            "enrollment": "102",
+            "status": "Present"
+        },
+        {
+            "srNo": "3",
+            "studentName": "Suhal Kumar",
+            "enrollment": "103",
+            "status": "Present"
+        }
+    ]
+}

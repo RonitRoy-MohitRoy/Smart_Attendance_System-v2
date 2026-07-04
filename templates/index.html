@@ -2,143 +2,379 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Attendance System</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- =========================================
+         BASIC SETTINGS
+    ========================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Smart Attendance System
+    </title>
+
+    <!-- =========================================
+         MAIN STYLESHEET
+    ========================================== -->
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
 </head>
 
 <body>
 
-    <!-- Main Container -->
-    <div class="container">
+<!-- =========================================
+     MAIN CONTAINER
+========================================== -->
 
-        <!-- Header -->
-        <header>
+<div class="container">
 
-            <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="College Logo" class="logo">
+    <!-- =========================================
+         HEADER SECTION
+    ========================================== -->
 
-            <h1>VEERAYATAN POLYTECHNIC</h1>
+    <header class="header">
 
-            <h2>Computer Engineering Department</h2>
+        <div class="header-top">
 
-            <h3>SMART ATTENDANCE SYSTEM & CLASS ACTIVITY</h3>
+            <img
+                src="{{ url_for('static', filename='images/logo.jpg') }}"
+                alt="College Logo"
+                class="logo">
 
-        </header>
+        </div>
 
-        <!-- Introduction -->
+        <div class="header-content">
 
-        <section class="introduction">
+            <h1>
+                VEERAYATAN POLYTECHNIC
+            </h1>
 
-            <h2>About Veerayatan Polytechnic</h2>
+            <h2>
+                Computer Engineering Department
+            </h2>
 
-            <p>
+            <h3>
+                SMART ATTENDANCE SYSTEM
+            </h3>
 
-                Veerayatan Polytechnic is committed to providing quality technical education,
-                practical knowledge, and professional skills to students.
-                The Computer Engineering Department focuses on developing strong programming,
-                software development, networking, and problem-solving skills, preparing students
-                for successful careers in the IT industry.
+            <p class="header-subtitle">
+
+                Attendance Management &
+                Class Activity Management System
 
             </p>
 
-        </section>
+        </div>
 
-        <!-- Department Heading -->
+    </header>
 
-        <section class="department">
+    <!-- =========================================
+         INTRODUCTION SECTION
+    ========================================== -->
 
-            <h2>COMPUTER ENGINEERING</h2>
+    <section class="introduction">
 
-        </section>
+        <div class="intro-card">
 
-<!-- Main Buttons -->
-
-<section class="main-buttons">
-
-    <button onclick="openAttendancePopup()">
-        ATTENDANCE
-    </button>
-
-    <button onclick="openActivityPopup()">
-        CLASS ACTIVITY
-    </button>
-
-</section>
-
-<!-- Attendance Popup -->
-
-<div id="attendancePopup" class="popup">
-
-    <div class="popup-content">
-
-        <h2>Select Semester</h2>
-
-        <a href="/attendance/semester1"><button>Semester 1</button></a>
-        <a href="/attendance/semester2"><button>Semester 2</button></a>
-        <a href="/attendance/semester3"><button>Semester 3</button></a>
-        <a href="/attendance/semester4"><button>Semester 4</button></a>
-        <a href="/attendance/semester5"><button>Semester 5</button></a>
-        <a href="/attendance/semester6"><button>Semester 6</button></a>
-
-        <button onclick="closeAttendancePopup()">Close</button>
-
-    </div>
-
-</div>
-
-<!-- Class Activity Popup -->
-
-<div id="activityPopup" class="popup">
-
-    <div class="popup-content">
-
-        <h2>Select Semester</h2>
-
-        <a href="/class_activity/semester1"><button>Semester 1</button></a>
-        <a href="/class_activity/semester2"><button>Semester 2</button></a>
-        <a href="/class_activity/semester3"><button>Semester 3</button></a>
-        <a href="/class_activity/semester4"><button>Semester 4</button></a>
-        <a href="/class_activity/semester5"><button>Semester 5</button></a>
-        <a href="/class_activity/semester6"><button>Semester 6</button></a>
-
-        <button onclick="closeActivityPopup()">Close</button>
-
-    </div>
-
-</div>
-
-<script>
-
-function openAttendancePopup(){
-    document.getElementById("attendancePopup").style.display = "flex";
-}
-
-function closeAttendancePopup(){
-    document.getElementById("attendancePopup").style.display = "none";
-}
-
-function openActivityPopup(){
-    document.getElementById("activityPopup").style.display = "flex";
-}
-
-function closeActivityPopup(){
-    document.getElementById("activityPopup").style.display = "none";
-}
-
-</script>
-        <!-- Footer -->
-
-        <footer>
+            <h2>
+                About Veerayatan Polytechnic
+            </h2>
 
             <p>
-                © 2026 Veerayatan Polytechnic | Smart Attendance System
+
+                Veerayatan Polytechnic is committed to
+                providing quality technical education,
+                practical knowledge and professional
+                skills to students.
+
+                The Computer Engineering Department
+                focuses on programming, software
+                development, networking and
+                problem-solving skills that prepare
+                students for successful careers in
+                the IT industry.
+
             </p>
 
-        </footer>
+        </div>
+
+    </section>
+
+    <!-- =========================================
+         DEPARTMENT SECTION
+         (Part 2 Starts From Here)
+    ========================================== -->
+	<!-- =========================================
+         DEPARTMENT SECTION
+    ========================================== -->
+
+    <section class="department-section">
+
+        <div class="department-card">
+
+            <h2>
+                COMPUTER ENGINEERING
+            </h2>
+
+            <p>
+
+                Select the required module to continue.
+
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- =========================================
+         MAIN DASHBOARD
+    ========================================== -->
+
+    <section class="dashboard">
+
+        <div class="dashboard-title">
+
+            <h2>
+                MAIN DASHBOARD
+            </h2>
+
+            <p>
+
+                Choose one of the following options.
+
+            </p>
+
+        </div>
+
+        <div class="main-buttons">
+
+            <!-- Attendance -->
+
+            <button
+                class="dashboard-btn attendance-btn"
+                onclick="openAttendancePopup()">
+
+                <span class="button-title">
+
+                    ATTENDANCE
+
+                </span>
+
+                <span class="button-subtitle">
+
+                    Daily Student Attendance
+
+                </span>
+
+            </button>
+
+            <!-- Class Activity -->
+
+            <button
+                class="dashboard-btn activity-btn"
+                onclick="openActivityPopup()">
+
+                <span class="button-title">
+
+                    CLASS ACTIVITY
+
+                </span>
+
+                <span class="button-subtitle">
+
+                    Assignment • Practical • Project
+
+                </span>
+
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- =========================================
+         ATTENDANCE POPUP
+    ========================================== -->
+
+    <div
+        id="attendancePopup"
+        class="popup">
+
+        <div class="popup-content">
+
+            <h2>
+
+                Select Semester
+
+            </h2>
+
+            <div class="semester-grid">
+
+                <a href="/attendance/semester1">
+                    <button>Semester 1</button>
+                </a>
+
+                <a href="/attendance/semester2">
+                    <button>Semester 2</button>
+                </a>
+
+                <a href="/attendance/semester3">
+                    <button>Semester 3</button>
+                </a>
+
+                <a href="/attendance/semester4">
+                    <button>Semester 4</button>
+                </a>
+
+                <a href="/attendance/semester5">
+                    <button>Semester 5</button>
+                </a>
+
+                <a href="/attendance/semester6">
+                    <button>Semester 6</button>
+                </a>
+
+            </div>
+
+            <button
+                class="close-btn"
+                onclick="closeAttendancePopup()">
+
+                Close
+
+            </button>
+
+        </div>
 
     </div>
+
+    <!-- =========================================
+         PART 3 STARTS HERE
+         CLASS ACTIVITY POPUP
+    ========================================== -->
+	<!-- =========================================
+         CLASS ACTIVITY POPUP
+    ========================================== -->
+
+    <div
+        id="activityPopup"
+        class="popup">
+
+        <div class="popup-content">
+
+            <h2>
+
+                Select Semester
+
+            </h2>
+
+            <div class="semester-grid">
+
+                <a href="/class_activity/semester1">
+                    <button>Semester 1</button>
+                </a>
+
+                <a href="/class_activity/semester2">
+                    <button>Semester 2</button>
+                </a>
+
+                <a href="/class_activity/semester3">
+                    <button>Semester 3</button>
+                </a>
+
+                <a href="/class_activity/semester4">
+                    <button>Semester 4</button>
+                </a>
+
+                <a href="/class_activity/semester5">
+                    <button>Semester 5</button>
+                </a>
+
+                <a href="/class_activity/semester6">
+                    <button>Semester 6</button>
+                </a>
+
+            </div>
+
+            <button
+                class="close-btn"
+                onclick="closeActivityPopup()">
+
+                Close
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script>
+
+    function openAttendancePopup() {
+
+        document.getElementById(
+            "attendancePopup"
+        ).style.display = "flex";
+
+    }
+
+    function closeAttendancePopup() {
+
+        document.getElementById(
+            "attendancePopup"
+        ).style.display = "none";
+
+    }
+
+    function openActivityPopup() {
+
+        document.getElementById(
+            "activityPopup"
+        ).style.display = "flex";
+
+    }
+
+    function closeActivityPopup() {
+
+        document.getElementById(
+            "activityPopup"
+        ).style.display = "none";
+
+    }
+
+    </script>
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <footer>
+
+        <p>
+
+            © 2026 Veerayatan Polytechnic
+
+        </p>
+
+        <p>
+
+            Smart Attendance System &
+            Class Activity Management
+
+        </p>
+
+    </footer>
+
+</div>
 
 </body>
 

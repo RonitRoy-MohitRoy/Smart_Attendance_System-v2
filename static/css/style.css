@@ -1,56 +1,114 @@
-/* =====================================
+/* ==========================================================
    SMART ATTENDANCE SYSTEM
-   VEERAYATAN POLYTECHNIC
-   style.css
-===================================== */
+   VERSION 3.0
+   PART 1
+   Global Settings + Body + Container + Header
+========================================================== */
+
+
+/* ==========================================================
+   RESET
+========================================================== */
 
 *{
+
     margin:0;
+
     padding:0;
+
     box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        Helvetica,
+        sans-serif;
+
 }
+
+
+/* ==========================================================
+   BODY
+========================================================== */
 
 body{
 
-    background:linear-gradient(135deg,#d9f3ff,#eef9ff);
-
     min-height:100vh;
 
+    background:
+    linear-gradient(
+        135deg,
+        #d9ecff,
+        #eef7ff,
+        #ffffff
+    );
+
+    color:#222;
+
 }
+
+
+/* ==========================================================
+   MAIN CONTAINER
+========================================================== */
 
 .container{
 
-    width:90%;
-    max-width:1200px;
+    width:92%;
+
+    max-width:1400px;
 
     margin:30px auto;
 
-    background:white;
+    background:#ffffff;
 
-    border-radius:15px;
-
-    box-shadow:0px 10px 25px rgba(0,0,0,0.20);
+    border-radius:18px;
 
     overflow:hidden;
 
+    box-shadow:
+    0 12px 35px
+    rgba(0,0,0,0.15);
+
 }
 
-/* ===========================
-        HEADER
-=========================== */
 
-header{
+/* ==========================================================
+   HEADER
+========================================================== */
 
-    background:#0b66c3;
+.header{
+
+    background:
+    linear-gradient(
+        135deg,
+        #0b66c3,
+        #1677d8
+    );
 
     color:white;
 
     text-align:center;
 
-    padding:30px;
+    padding:35px;
 
 }
+
+
+/* ==========================================================
+   HEADER TOP
+========================================================== */
+
+.header-top{
+
+    margin-bottom:20px;
+
+}
+
+
+/* ==========================================================
+   LOGO
+========================================================== */
 
 .logo{
 
@@ -64,65 +122,177 @@ header{
 
     padding:8px;
 
+    object-fit:cover;
+
+    box-shadow:
+    0 8px 20px
+    rgba(0,0,0,0.25);
+
+}
+
+
+/* ==========================================================
+   HEADER CONTENT
+========================================================== */
+
+.header-content{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+
+/* ==========================================================
+   COLLEGE NAME
+========================================================== */
+
+.header-content h1{
+
+    font-size:38px;
+
+    font-weight:700;
+
+    letter-spacing:2px;
+
+    margin-bottom:10px;
+
+}
+
+
+/* ==========================================================
+   DEPARTMENT
+========================================================== */
+
+.header-content h2{
+
+    font-size:24px;
+
+    font-weight:500;
+
+    color:#d8eeff;
+
     margin-bottom:15px;
 
 }
 
-header h1{
 
-    font-size:38px;
+/* ==========================================================
+   PROJECT TITLE
+========================================================== */
 
-    letter-spacing:2px;
-
-}
-
-header h2{
-
-    margin-top:10px;
-
-    font-size:25px;
-
-    color:#d8f1ff;
-
-}
-
-header h3{
-
-    margin-top:15px;
+.header-content h3{
 
     font-size:28px;
 
-    color:#ffe66d;
+    font-weight:700;
+
+    color:#ffe56d;
+
+    margin-bottom:12px;
 
 }
 
-/* ===========================
-      INTRODUCTION
-=========================== */
+
+/* ==========================================================
+   SUBTITLE
+========================================================== */
+
+.header-subtitle{
+
+    font-size:18px;
+
+    color:#f2f8ff;
+
+    letter-spacing:1px;
+
+    line-height:30px;
+
+}
+
+
+/* ==========================================================
+   END OF PART 1
+========================================================== */
+/* ==========================================================
+   SMART ATTENDANCE SYSTEM
+   VERSION 3.0
+   PART 2
+   Introduction + Department + Dashboard + Buttons
+========================================================== */
+
+
+/* ==========================================================
+   INTRODUCTION SECTION
+========================================================== */
 
 .introduction{
 
-    padding:40px;
+    padding:45px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+
+/* ==========================================================
+   INTRODUCTION CARD
+========================================================== */
+
+.intro-card{
+
+    width:100%;
+
+    background:#f8fbff;
+
+    border-left:8px solid #0b66c3;
+
+    border-radius:15px;
+
+    padding:35px;
+
+    box-shadow:
+    0 8px 25px
+    rgba(0,0,0,0.08);
+
+}
+
+
+/* ==========================================================
+   INTRODUCTION TITLE
+========================================================== */
+
+.intro-card h2{
+
+    font-size:32px;
+
+    color:#0b66c3;
+
+    margin-bottom:25px;
 
     text-align:center;
 
 }
 
-.introduction h2{
 
-    color:#0b66c3;
+/* ==========================================================
+   INTRODUCTION PARAGRAPH
+========================================================== */
 
-    margin-bottom:20px;
-
-    font-size:32px;
-
-}
-
-.introduction p{
+.intro-card p{
 
     font-size:19px;
 
-    line-height:35px;
+    line-height:34px;
 
     color:#444;
 
@@ -130,227 +300,261 @@ header h3{
 
 }
 
-/* ===========================
-   COMPUTER DEPARTMENT
-=========================== */
 
-.department{
+/* ==========================================================
+   DEPARTMENT SECTION
+========================================================== */
 
-    text-align:center;
+.department-section{
 
-    padding-bottom:30px;
+    display:flex;
+
+    justify-content:center;
+
+    padding:10px 40px 35px;
 
 }
 
-.department h2{
 
-    display:inline-block;
+/* ==========================================================
+   DEPARTMENT CARD
+========================================================== */
 
-    padding:15px 50px;
+.department-card{
 
-    background:#0b66c3;
+    width:100%;
+
+    background:
+    linear-gradient(
+        135deg,
+        #0b66c3,
+        #2196f3
+    );
 
     color:white;
 
-    border-radius:10px;
+    border-radius:15px;
 
-    letter-spacing:2px;
+    padding:28px;
 
-    font-size:30px;
+    text-align:center;
+
+    box-shadow:
+    0 10px 25px
+    rgba(11,102,195,0.25);
 
 }
 
-/* ===========================
-      SEMESTER BUTTONS
-=========================== */
 
-.semester-section{
+/* ==========================================================
+   DEPARTMENT TITLE
+========================================================== */
 
-    width:80%;
+.department-card h2{
 
-    margin:40px auto;
+    font-size:30px;
+
+    letter-spacing:2px;
+
+    margin-bottom:10px;
+
+}
+
+
+/* ==========================================================
+   DEPARTMENT SUBTITLE
+========================================================== */
+
+.department-card p{
+
+    font-size:17px;
+
+    color:#eef7ff;
+
+}
+
+
+/* ==========================================================
+   DASHBOARD
+========================================================== */
+
+.dashboard{
+
+    padding:45px;
+
+}
+
+
+/* ==========================================================
+   DASHBOARD TITLE
+========================================================== */
+
+.dashboard-title{
+
+    text-align:center;
+
+    margin-bottom:35px;
+
+}
+
+
+.dashboard-title h2{
+
+    font-size:34px;
+
+    color:#0b66c3;
+
+    margin-bottom:10px;
+
+}
+
+
+.dashboard-title p{
+
+    font-size:18px;
+
+    color:#666;
+
+}
+
+
+/* ==========================================================
+   MAIN BUTTON AREA
+========================================================== */
+
+.main-buttons{
 
     display:grid;
 
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:
+    repeat(2,1fr);
 
     gap:30px;
 
 }
 
-.semester-section a{
 
-    text-decoration:none;
+/* ==========================================================
+   DASHBOARD BUTTON
+========================================================== */
 
-}
-
-.semester-section button{
-
-    width:100%;
-
-    padding:18px;
+.dashboard-btn{
 
     border:none;
 
-    border-radius:10px;
+    border-radius:18px;
 
-    background:#0099ff;
-
-    color:white;
-
-    font-size:22px;
+    padding:35px 25px;
 
     cursor:pointer;
 
-    transition:0.3s;
-
-    font-weight:bold;
-
-}
-
-.semester-section button:hover{
-
-    background:#00c853;
-
-    transform:translateY(-5px);
-
-    box-shadow:0px 8px 20px rgba(0,0,0,0.25);
-
-}
-
-/* ===========================
-         FOOTER
-=========================== */
-
-footer{
-
-    margin-top:40px;
-
-    background:#0b66c3;
+    transition:0.35s;
 
     color:white;
 
     text-align:center;
 
-    padding:18px;
-
-    font-size:17px;
+    box-shadow:
+    0 12px 30px
+    rgba(0,0,0,0.15);
 
 }
 
-/* ===========================
-      RESPONSIVE DESIGN
-=========================== */
 
-@media(max-width:768px){
+/* ==========================================================
+   ATTENDANCE BUTTON
+========================================================== */
 
-header h1{
+.attendance-btn{
+
+    background:
+    linear-gradient(
+        135deg,
+        #0b66c3,
+        #2196f3
+    );
+
+}
+
+
+/* ==========================================================
+   CLASS ACTIVITY BUTTON
+========================================================== */
+
+.activity-btn{
+
+    background:
+    linear-gradient(
+        135deg,
+        #00a651,
+        #2ecc71
+    );
+
+}
+
+
+/* ==========================================================
+   BUTTON TITLE
+========================================================== */
+
+.button-title{
+
+    display:block;
 
     font-size:28px;
 
-}
+    font-weight:700;
 
-header h2{
-
-    font-size:20px;
+    margin-bottom:12px;
 
 }
 
-header h3{
 
-    font-size:22px;
+/* ==========================================================
+   BUTTON SUBTITLE
+========================================================== */
 
-}
+.button-subtitle{
 
-.logo{
-
-    width:90px;
-
-    height:90px;
-
-}
-
-.semester-section{
-
-    grid-template-columns:1fr;
-
-}
-
-.introduction{
-
-    padding:25px;
-
-}
-
-.introduction p{
+    display:block;
 
     font-size:17px;
 
-}
-
-.department h2{
-
-    font-size:24px;
-
-    padding:12px 25px;
+    opacity:0.95;
 
 }
 
-}
 
-/* ===========================
-      MAIN BUTTONS
-=========================== */
+/* ==========================================================
+   BUTTON HOVER
+========================================================== */
 
-.main-buttons{
+.dashboard-btn:hover{
 
-    width:60%;
+    transform:
+    translateY(-8px);
 
-    margin:40px auto;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:25px;
+    box-shadow:
+    0 18px 35px
+    rgba(0,0,0,0.22);
 
 }
 
-.main-buttons button{
 
-    width:100%;
+/* ==========================================================
+   END OF PART 2
+========================================================== */
+/* ==========================================================
+   SMART ATTENDANCE SYSTEM
+   VERSION 3.0
+   PART 3
+   Popup + Semester Grid + Footer
+========================================================== */
 
-    padding:22px;
 
-    font-size:28px;
-
-    font-weight:bold;
-
-    color:white;
-
-    background:#0b66c3;
-
-    border:none;
-
-    border-radius:12px;
-
-    cursor:pointer;
-
-    transition:0.3s;
-
-}
-
-.main-buttons button:hover{
-
-    background:#00c853;
-
-    transform:translateY(-5px);
-
-}
-
-/* ===========================
-          POPUP
-=========================== */
+/* ==========================================================
+   POPUP BACKGROUND
+========================================================== */
 
 .popup{
 
@@ -366,7 +570,8 @@ header h3{
 
     height:100%;
 
-    background:rgba(0,0,0,0.5);
+    background:
+    rgba(0,0,0,0.55);
 
     justify-content:center;
 
@@ -374,60 +579,618 @@ header h3{
 
     z-index:999;
 
+    padding:20px;
+
 }
+
+
+/* ==========================================================
+   POPUP BOX
+========================================================== */
 
 .popup-content{
 
-    width:400px;
+    width:100%;
+
+    max-width:520px;
 
     background:white;
 
-    padding:30px;
+    border-radius:20px;
 
-    border-radius:15px;
+    padding:35px;
 
     text-align:center;
 
+    box-shadow:
+    0 20px 45px
+    rgba(0,0,0,0.30);
+
 }
+
+
+/* ==========================================================
+   POPUP TITLE
+========================================================== */
 
 .popup-content h2{
 
-    margin-bottom:20px;
-
     color:#0b66c3;
+
+    font-size:30px;
+
+    margin-bottom:30px;
 
 }
 
-.popup-content a{
+
+/* ==========================================================
+   SEMESTER GRID
+========================================================== */
+
+.semester-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:15px;
+
+    margin-bottom:25px;
+
+}
+
+
+/* ==========================================================
+   REMOVE LINK STYLE
+========================================================== */
+
+.semester-grid a{
 
     text-decoration:none;
 
 }
 
-.popup-content button{
+
+/* ==========================================================
+   SEMESTER BUTTON
+========================================================== */
+
+.semester-grid button{
 
     width:100%;
 
     padding:15px;
 
-    margin:8px 0;
-
     border:none;
 
-    border-radius:8px;
+    border-radius:10px;
 
-    background:#0099ff;
+    background:
+    linear-gradient(
+        135deg,
+        #0b66c3,
+        #2196f3
+    );
 
     color:white;
 
     font-size:18px;
 
+    font-weight:600;
+
     cursor:pointer;
 
-}
-
-.popup-content button:hover{
-
-    background:#00c853;
+    transition:0.30s;
 
 }
+
+
+/* ==========================================================
+   SEMESTER BUTTON HOVER
+========================================================== */
+
+.semester-grid button:hover{
+
+    transform:
+    translateY(-4px);
+
+    background:
+    linear-gradient(
+        135deg,
+        #00a651,
+        #2ecc71
+    );
+
+}
+
+
+/* ==========================================================
+   CLOSE BUTTON
+========================================================== */
+
+.close-btn{
+
+    width:100%;
+
+    margin-top:10px;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#e53935;
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.30s;
+
+}
+
+
+/* ==========================================================
+   CLOSE BUTTON HOVER
+========================================================== */
+
+.close-btn:hover{
+
+    background:#c62828;
+
+}
+
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+
+footer{
+
+    margin-top:40px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #0b66c3,
+        #1677d8
+    );
+
+    color:white;
+
+    text-align:center;
+
+    padding:25px;
+
+}
+
+
+/* ==========================================================
+   FOOTER TEXT
+========================================================== */
+
+footer p{
+
+    font-size:17px;
+
+    line-height:30px;
+
+    letter-spacing:0.5px;
+
+}
+
+
+/* ==========================================================
+   END OF PART 3
+========================================================== */
+/* ==========================================================
+   SMART ATTENDANCE SYSTEM
+   VERSION 3.0
+   PART 4
+   Responsive Design + Smooth Effects + Final
+========================================================== */
+
+
+/* ==========================================================
+   SMOOTH SCROLL
+========================================================== */
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+
+/* ==========================================================
+   BUTTON ACTIVE EFFECT
+========================================================== */
+
+button:active{
+
+    transform:scale(0.97);
+
+}
+
+
+/* ==========================================================
+   REMOVE BLUE TAP HIGHLIGHT
+========================================================== */
+
+button,
+a{
+
+    -webkit-tap-highlight-color:transparent;
+
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+   TABLET
+========================================================== */
+
+@media(max-width:992px){
+
+.header{
+
+    padding:30px;
+
+}
+
+.logo{
+
+    width:100px;
+
+    height:100px;
+
+}
+
+.header-content h1{
+
+    font-size:32px;
+
+}
+
+.header-content h2{
+
+    font-size:22px;
+
+}
+
+.header-content h3{
+
+    font-size:24px;
+
+}
+
+.header-subtitle{
+
+    font-size:17px;
+
+}
+
+.introduction{
+
+    padding:35px;
+
+}
+
+.intro-card{
+
+    padding:30px;
+
+}
+
+.intro-card h2{
+
+    font-size:28px;
+
+}
+
+.intro-card p{
+
+    font-size:18px;
+
+    line-height:32px;
+
+}
+
+.department-card h2{
+
+    font-size:28px;
+
+}
+
+.dashboard{
+
+    padding:35px;
+
+}
+
+.dashboard-title h2{
+
+    font-size:30px;
+
+}
+
+.main-buttons{
+
+    gap:20px;
+
+}
+
+.dashboard-btn{
+
+    padding:30px 20px;
+
+}
+
+.button-title{
+
+    font-size:24px;
+
+}
+
+.button-subtitle{
+
+    font-size:16px;
+
+}
+
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+   MOBILE
+========================================================== */
+
+@media(max-width:768px){
+
+.container{
+
+    width:95%;
+
+    margin:15px auto;
+
+}
+
+.header{
+
+    padding:25px;
+
+}
+
+.logo{
+
+    width:85px;
+
+    height:85px;
+
+}
+
+.header-content h1{
+
+    font-size:26px;
+
+    letter-spacing:1px;
+
+}
+
+.header-content h2{
+
+    font-size:18px;
+
+}
+
+.header-content h3{
+
+    font-size:20px;
+
+}
+
+.header-subtitle{
+
+    font-size:15px;
+
+    line-height:24px;
+
+}
+
+.introduction{
+
+    padding:20px;
+
+}
+
+.intro-card{
+
+    padding:20px;
+
+}
+
+.intro-card h2{
+
+    font-size:24px;
+
+}
+
+.intro-card p{
+
+    font-size:16px;
+
+    line-height:28px;
+
+}
+
+.department-section{
+
+    padding:15px 20px 25px;
+
+}
+
+.department-card{
+
+    padding:22px;
+
+}
+
+.department-card h2{
+
+    font-size:22px;
+
+}
+
+.department-card p{
+
+    font-size:15px;
+
+}
+
+.dashboard{
+
+    padding:25px 20px;
+
+}
+
+.dashboard-title h2{
+
+    font-size:26px;
+
+}
+
+.dashboard-title p{
+
+    font-size:16px;
+
+}
+
+.main-buttons{
+
+    grid-template-columns:1fr;
+
+    gap:20px;
+
+}
+
+.dashboard-btn{
+
+    padding:28px 18px;
+
+}
+
+.button-title{
+
+    font-size:22px;
+
+}
+
+.button-subtitle{
+
+    font-size:15px;
+
+}
+
+.popup-content{
+
+    padding:25px;
+
+}
+
+.popup-content h2{
+
+    font-size:24px;
+
+}
+
+.semester-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+.semester-grid button{
+
+    font-size:17px;
+
+}
+
+.close-btn{
+
+    font-size:17px;
+
+}
+
+footer{
+
+    padding:20px;
+
+}
+
+footer p{
+
+    font-size:15px;
+
+    line-height:26px;
+
+}
+
+}
+
+
+/* ==========================================================
+   LARGE DESKTOP
+========================================================== */
+
+@media(min-width:1400px){
+
+.container{
+
+    max-width:1500px;
+
+}
+
+.header-content h1{
+
+    font-size:42px;
+
+}
+
+.header-content h2{
+
+    font-size:28px;
+
+}
+
+.header-content h3{
+
+    font-size:32px;
+
+}
+
+.dashboard-btn{
+
+    padding:40px;
+
+}
+
+.button-title{
+
+    font-size:30px;
+
+}
+
+}
+
+
+/* ==========================================================
+   END OF STYLE.CSS
+========================================================== */

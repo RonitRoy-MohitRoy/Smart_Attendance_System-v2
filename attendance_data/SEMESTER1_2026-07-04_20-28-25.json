@@ -1,8 +1,8 @@
 {
-    "semester": "semester1",
+    "semester": "SEMESTER1",
     "subject": "CPD",
-    "faculty": "Khan Sir",
-    "date": "2026-07-02",
+    "faculty": "Ruhhi sir",
+    "date": "2026-07-04",
     "students": [
         {
             "srNo": "1",
@@ -14,7 +14,7 @@
             "srNo": "2",
             "studentName": "Arvind Sing",
             "enrollment": "102",
-            "status": "Absent"
+            "status": "Present"
         },
         {
             "srNo": "3",

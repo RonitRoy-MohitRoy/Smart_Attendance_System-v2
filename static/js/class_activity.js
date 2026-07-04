@@ -9,9 +9,9 @@
 // MARK SETTINGS
 // ==========================================================
 
-const assignmentMax = 20;
-const practicalMax = 30;
-const projectMax = 20;
+let assignmentMax = 20;
+let practicalMax = 30;
+let projectMax = 20;
 
 
 // ==========================================================
@@ -448,7 +448,46 @@ function addSubjectRow(subject) {
 // ==========================================================
 // CALCULATE MARKS
 // ==========================================================
+// ==========================================================
+// UPDATE MAXIMUM MARKS
+// ==========================================================
 
+function updateMaximumMarks() {
+
+    assignmentMax = Number(
+        document.getElementById("assignmentMaxInput").value
+    );
+
+    practicalMax = Number(
+        document.getElementById("practicalMaxInput").value
+    );
+
+    projectMax = Number(
+        document.getElementById("projectMaxInput").value
+    );
+
+    document.getElementById("assignmentHeading").innerText =
+        `Assignment (${assignmentMax})`;
+
+    document.getElementById("practicalHeading").innerText =
+        `Practical (${practicalMax})`;
+
+    document.getElementById("projectHeading").innerText =
+        `Project (${projectMax})`;
+
+    document.querySelectorAll("#activityBody tr").forEach(row => {
+
+        const inputs = row.querySelectorAll("input");
+
+        inputs[0].max = assignmentMax;
+        inputs[1].max = practicalMax;
+        inputs[2].max = projectMax;
+
+        calculateRow(inputs[0]);
+
+    });
+
+}
 function calculateRow(input) {
 
     const row = input.closest("tr");

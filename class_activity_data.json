@@ -1,109 +1,109 @@
 [
     {
-        "semester": "semester1",
+        "semester": "SEMESTER1",
         "studentName": "Ronit Choudhary",
         "enrollment": "\n101\n",
-        "faculty": "Khan sir",
-        "date": "2026-07-02",
+        "faculty": "Menal Ma'aM",
+        "date": "2026-07-04",
         "subjects": [
             {
                 "subject": "CPD",
-                "assignment": 12,
-                "practical": 16,
-                "project": 18,
-                "total": 46,
-                "percentage": "65.71%",
-                "remarks": "Good"
-            },
-            {
-                "subject": "DBMS",
-                "assignment": 16,
-                "practical": 19,
-                "project": 20,
-                "total": 55,
-                "percentage": "78.57%",
-                "remarks": "Very Good"
+                "assignment": 0,
+                "practical": 0,
+                "project": 0,
+                "total": 0,
+                "percentage": "0.00%",
+                "remarks": "Fail"
             },
             {
                 "subject": "HTML",
-                "assignment": 11,
-                "practical": 20,
-                "project": 20,
-                "total": 51,
-                "percentage": "72.86%",
-                "remarks": "Good"
+                "assignment": 0,
+                "practical": 0,
+                "project": 0,
+                "total": 0,
+                "percentage": "0.00%",
+                "remarks": "Fail"
+            },
+            {
+                "subject": "DBMS",
+                "assignment": 0,
+                "practical": 0,
+                "project": 0,
+                "total": 0,
+                "percentage": "0.00%",
+                "remarks": "Fail"
             }
         ]
     },
     {
-        "semester": "semester1",
+        "semester": "SEMESTER1",
         "studentName": "Arvind Sing",
         "enrollment": "\n102\n",
-        "faculty": "Khan sir",
-        "date": "2026-07-02",
+        "faculty": "Menal Ma'aM",
+        "date": "2026-07-04",
         "subjects": [
             {
                 "subject": "CPD",
-                "assignment": 17,
-                "practical": 25,
-                "project": 20,
-                "total": 62,
-                "percentage": "88.57%",
-                "remarks": "Very Good"
-            },
-            {
-                "subject": "DBMS",
-                "assignment": 16,
-                "practical": 23,
-                "project": 20,
-                "total": 59,
-                "percentage": "84.29%",
-                "remarks": "Very Good"
+                "assignment": 0,
+                "practical": 0,
+                "project": 0,
+                "total": 0,
+                "percentage": "0.00%",
+                "remarks": "Fail"
             },
             {
                 "subject": "HTML",
-                "assignment": 15,
-                "practical": 20,
-                "project": 20,
-                "total": 55,
-                "percentage": "78.57%",
-                "remarks": "Very Good"
+                "assignment": 0,
+                "practical": 0,
+                "project": 0,
+                "total": 0,
+                "percentage": "0.00%",
+                "remarks": "Fail"
+            },
+            {
+                "subject": "DBMS",
+                "assignment": 0,
+                "practical": 0,
+                "project": 0,
+                "total": 0,
+                "percentage": "0.00%",
+                "remarks": "Fail"
             }
         ]
     },
     {
-        "semester": "semester1",
+        "semester": "SEMESTER1",
         "studentName": "Suhal Kumar",
         "enrollment": "\n103\n",
-        "faculty": "Khan sir",
-        "date": "2026-07-02",
+        "faculty": "Menal Ma'aM",
+        "date": "2026-07-04",
         "subjects": [
             {
                 "subject": "CPD",
-                "assignment": 15,
-                "practical": 19,
-                "project": 14,
-                "total": 48,
-                "percentage": "68.57%",
-                "remarks": "Good"
-            },
-            {
-                "subject": "DBMS",
-                "assignment": 13,
-                "practical": 20,
-                "project": 20,
-                "total": 53,
-                "percentage": "75.71%",
-                "remarks": "Very Good"
+                "assignment": 0,
+                "practical": 0,
+                "project": 0,
+                "total": 0,
+                "percentage": "0.00%",
+                "remarks": "Fail"
             },
             {
                 "subject": "HTML",
-                "assignment": 16,
-                "practical": 22,
-                "project": 20,
-                "total": 58,
-                "percentage": "82.86%",
-                "remarks": "Very Good"
+                "assignment": 0,
+                "practical": 0,
+                "project": 0,
+                "total": 0,
+                "percentage": "0.00%",
+                "remarks": "Fail"
+            },
+            {
+                "subject": "DBMS",
+                "assignment": 0,
+                "practical": 0,
+                "project": 0,
+                "total": 0,
+                "percentage": "0.00%",
+                "remarks": "Fail"
             }
         ]
     }

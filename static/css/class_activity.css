@@ -1,7 +1,13 @@
-/* =====================================
-   CLASS ACTIVITY SYSTEM CSS
-   Part 1
-===================================== */
+/* ==========================================================
+   CLASS ACTIVITY MANAGEMENT SYSTEM
+   VERSION 4.0
+   PART 1
+   Reset + Body + Container + Header + Semester
+========================================================== */
+
+/* ==========================================================
+   RESET
+========================================================== */
 
 *{
     margin:0;
@@ -10,537 +16,1205 @@
     font-family:Arial, Helvetica, sans-serif;
 }
 
+/* ==========================================================
+   BODY
+========================================================== */
+
 body{
-    background:#f4f8fc;
+
+    background:linear-gradient(
+        135deg,
+        #edf5ff,
+        #dbeeff
+    );
+
     min-height:100vh;
-    padding:30px;
+
+    color:#222;
+
 }
+
+/* ==========================================================
+   PAGE WRAPPER
+========================================================== */
+
+.page-wrapper{
+
+    width:100%;
+
+    padding:35px 0;
+
+}
+
+/* ==========================================================
+   MAIN CONTAINER
+========================================================== */
 
 .container{
+
     width:95%;
-    max-width:1300px;
+
+    max-width:1450px;
+
     margin:auto;
-    background:#fff;
-    border-radius:15px;
-    padding:25px;
-    box-shadow:0 8px 20px rgba(0,0,0,.15);
-    animation:fadeIn .8s ease;
-}
 
-/* ==========================
-   HEADER
-========================== */
+    background:#ffffff;
 
-header{
-    text-align:center;
-    border-bottom:3px solid #0d6efd;
-    padding-bottom:20px;
-    margin-bottom:25px;
-}
+    border-radius:22px;
 
-.logo{
-    width:90px;
-    height:90px;
-    border-radius:50%;
-    object-fit:cover;
-    border:3px solid #0d6efd;
-    margin-bottom:10px;
-}
-
-header h1{
-    color:#003366;
-    font-size:32px;
-    margin-bottom:5px;
-}
-
-header h2{
-    color:#444;
-    font-size:22px;
-    margin-bottom:5px;
-}
-
-header h3{
-    color:#0d6efd;
-    font-size:20px;
-    letter-spacing:1px;
-}
-
-/* ==========================
-   SEMESTER TITLE
-========================== */
-
-.semester-title{
-    text-align:center;
-    margin:20px 0;
-}
-
-.semester-title h2{
-    display:inline-block;
-    background:#0d6efd;
-    color:#fff;
-    padding:10px 35px;
-    border-radius:30px;
-    box-shadow:0 5px 15px rgba(13,110,253,.3);
-}
-
-/* ==========================
-   SUBJECT INFORMATION
-========================== */
-
-.subject-info{
-    margin-top:20px;
-    padding:15px;
-    background:#eef6ff;
-    border-left:5px solid #0d6efd;
-    border-radius:8px;
-}
-
-.subject-info p{
-    margin:0;
-    color:#003366;
-    font-size:14px;
-    line-height:1.6;
-}
-
-.subject-info strong{
-    color:#0d6efd;
-}
-
-.info-section input:focus{
-    border-color:#0d6efd;
-    box-shadow:0 0 8px rgba(13,110,253,.3);
-}
-
-/* ==========================
-   MARKS CONFIGURATION
-========================== */
-
-.marks-config{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:20px;
-    margin-bottom:25px;
-    align-items:end;
-}
-
-.marks-config label{
-    display:block;
-    font-weight:bold;
-    color:#003366;
-    margin-bottom:8px;
-}
-
-.marks-config input{
-    width:100%;
-    padding:12px;
-    border:2px solid #cfd8dc;
-    border-radius:8px;
-    outline:none;
-    font-size:15px;
-}
-
-.marks-config input:focus{
-    border-color:#198754;
-    box-shadow:0 0 8px rgba(25,135,84,.3);
-}
-
-.marks-config button{
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:8px;
-    background:#198754;
-    color:#fff;
-    font-size:15px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.marks-config button:hover{
-    background:#157347;
-    transform:translateY(-2px);
-}
-
-/* ==========================
-   SEARCH STUDENT
-========================== */
-
-.search-section{
-    text-align:center;
-    margin-bottom:25px;
-}
-
-.search-section button{
-    background:#fd7e14;
-    color:#fff;
-    border:none;
-    padding:12px 35px;
-    border-radius:8px;
-    font-size:15px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.3s;
-}.search-section button:hover{
-    background:#dc6a0d;
-    transform:translateY(-2px);
-}
-
-/* ==========================
-   ACTIVITY TABLE
-========================== */
-
-#activityTable{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:20px;
-    margin-bottom:25px;
-    border:2px solid #0d6efd;
-    border-radius:10px;
     overflow:hidden;
+
+    box-shadow:
+    0 15px 45px
+    rgba(0,0,0,.18);
+
+    animation:fadeIn .7s ease;
+
 }
 
-#activityTable thead{
-    background:#0d6efd;
-    color:#fff;
-}
+/* ==========================================================
+   HEADER
+========================================================== */
 
-#activityTable thead th{
-    padding:12px;
-    text-align:center;
-    border:1px solid #ddd;
-    position:sticky;
-    top:0;
-    z-index:10;
-}
+.main-header{
 
-#activityTable td{
-    border:1px solid #ddd;
-    padding:10px;
-    text-align:center;
-    vertical-align:middle;
-}
-
-#activityTable tbody tr:nth-child(even){
-    background:#f8f9fa;
-}
-
-#activityTable tbody tr:hover{
-    background:#e8f2ff;
-    transform:scale(1.01);
-}
-
-/* ==========================
-   INPUTS INSIDE TABLE
-========================== */
-
-#activityTable input{
-    width:80px;
-	max-width:100%;
-    padding:8px;
-    text-align:center;
-    border:1px solid #cfd8dc;
-    border-radius:5px;
-    outline:none;
-    transition:.3s;
-    font-size:14px;
-}
-
-#activityTable input:focus{
-    border-color:#0d6efd;
-    box-shadow:0 0 6px rgba(13,110,253,.3);
-}
-
-/* Subject Column */
-
-.subject-name{
-    font-weight:bold;
-    color:#003366;
-	text-align:left;
-	padding-left:12px;
-}
-
-/* Total */
-
-.total-cell{
-    font-weight:bold;
-    color:#198754;
-}
-
-/* Percentage */
-
-.percentage-cell{
-    font-weight:bold;
-    color:#0d6efd;
-}
-
-/* Remarks */
-
-.remarks-cell{
-    font-weight:bold;
-}
-
-/* Remove Button */
-
-.remove-btn{
-    background:#dc3545;
-    color:#fff;
-    border:none;
-    padding:8px 14px;
-    border-radius:6px;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.remove-btn:hover{
-    background:#bb2d3b;
-    transform:scale(1.05);
-}
-
-/* ==========================
-   BUTTONS
-========================== */
-
-.buttons{
     display:flex;
-    flex-wrap:wrap;
+
+    align-items:center;
+
+    gap:35px;
+
+    padding:35px 45px;
+
+    background:linear-gradient(
+        135deg,
+        #0b66c3,
+        #1b8ef2
+    );
+
+    color:white;
+
+}
+
+/* ==========================================================
+   HEADER LEFT
+========================================================== */
+
+.header-left{
+
+    display:flex;
+
     justify-content:center;
-    gap:15px;
-    margin-top:25px;
-}
 
-.buttons button{
-    border:none;
-    color:#fff;
-    padding:12px 24px;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:15px;
-    font-weight:bold;
-    transition:.3s;
-    box-shadow:0 4px 10px rgba(0,0,0,.15);
-}
-
-.buttons button:hover{
-    transform:translateY(-3px);
-    box-shadow:0 8px 18px rgba(0,0,0,.25);
-}
-
-.buttons button:active{
-    transform:scale(.96);
-}
-
-/* Individual Colors */
-
-.buttons button:nth-child(1){
-    background:#8E44AD;   /* Manage Subjects */
-}
-
-.buttons button:nth-child(2){
-    background:#3498DB;   /* Enter Student Name */
-}
-
-.buttons button:nth-child(3){
-    background:#F39C12;   /* Edit Student Name */
-}
-
-.buttons button:nth-child(4){
-    background:#27AE60;   /* Save Data */
-}
-
-.buttons button:nth-child(5){
-    background:#16A085;   /* Download Excel */
-}
-
-.buttons button:nth-child(6){
-    background:#34495E;   /* Print */
-}
-
-.buttons button:nth-child(7){
-    background:#E74C3C;   /* Home */
-}
-}/* =====================================
-   CLASS ACTIVITY SYSTEM CSS
-   Part 3 (Final)
-===================================== */
-
-/* ==========================
-   INPUT EFFECTS
-========================== */
-
-input::placeholder{
-    color:#888;
-}
-
-input:hover{
-    border-color:#0d6efd;
-}
-
-input:focus{
-    background:#f8fbff;
-}
-
-button:disabled{
-    background:#999;
-    cursor:not-allowed;
-    box-shadow:none;
-}
-
-/* ==========================
-   FADE ANIMATION
-========================== */
-
-@keyframes fadeIn{
-
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+    align-items:center;
 
 }
 
-/* ==========================
-   LOGO EFFECT
-========================== */
+/* ==========================================================
+   LOGO
+========================================================== */
 
 .logo{
-    transition:.4s;
+
+    width:120px;
+
+    height:120px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    background:white;
+
+    padding:6px;
+
+    border:4px solid white;
+
+    transition:.35s;
+
 }
 
 .logo:hover{
-    transform:rotate(5deg) scale(1.05);
-}
 
-/* ==========================
-   HEADER EFFECT
-========================== */
-
-header h1,
-header h2,
-header h3{
-    text-shadow:1px 1px 2px rgba(0,0,0,.1);
-}
-
-/* ==========================
-   CUSTOM SCROLLBAR
-========================== */
-
-::-webkit-scrollbar{
-    width:10px;
-    height:10px;
-}
-
-::-webkit-scrollbar-track{
-    background:#f1f1f1;
-}
-
-::-webkit-scrollbar-thumb{
-    background:#0d6efd;
-    border-radius:20px;
-}
-
-::-webkit-scrollbar-thumb:hover{
-    background:#084298;
-}
-
-/* ==========================
-   SELECTION
-========================== */
-
-::selection{
-    background:#0d6efd;
-    color:#fff;
-}
-
-/* ==========================
-   RESPONSIVE TABLE
-========================== */
-
-@media(max-width:900px){
-
-    #activityTable{
-
-        display:block;
-        overflow-x:auto;
-        white-space:nowrap;
-
-    }
+    transform:scale(1.05)
+              rotate(5deg);
 
 }
 
-/* ==========================
-   MOBILE
-========================== */
+/* ==========================================================
+   HEADER RIGHT
+========================================================== */
 
-@media(max-width:768px){
+.header-right{
 
-body{
-
-    padding:15px;
+    flex:1;
 
 }
 
-.container{
+/* ==========================================================
+   MAIN TITLE
+========================================================== */
 
-    padding:15px;
+.header-right h1{
+
+    font-size:38px;
+
+    letter-spacing:1px;
+
+    margin-bottom:8px;
+
+    text-shadow:
+    1px 1px 2px
+    rgba(0,0,0,.20);
 
 }
 
-header h1{
+/* ==========================================================
+   SUB TITLE
+========================================================== */
+
+.header-right h2{
 
     font-size:24px;
 
-}
+    color:#e5f3ff;
 
-header h2{
-
-    font-size:18px;
+    margin-bottom:8px;
 
 }
 
-header h3{
+/* ==========================================================
+   SYSTEM TITLE
+========================================================== */
+
+.header-right h3{
+
+    font-size:28px;
+
+    color:#ffe66d;
+
+    margin-bottom:12px;
+
+}
+
+/* ==========================================================
+   DESCRIPTION
+========================================================== */
+
+.header-subtitle{
 
     font-size:16px;
 
-}
+    line-height:28px;
 
-.logo{
-
-    width:70px;
-    height:70px;
+    color:#eef8ff;
 
 }
 
-.info-section{
+/* ==========================================================
+   SEMESTER SECTION
+========================================================== */
 
-    grid-template-columns:1fr;
+.semester-section{
+
+    padding:28px;
+
+    background:#f7fbff;
 
 }
 
-.marks-config{
+/* ==========================================================
+   SEMESTER CARD
+========================================================== */
 
-    grid-template-columns:1fr;
+.semester-card{
+
+    width:330px;
+
+    margin:auto;
+
+    background:linear-gradient(
+        135deg,
+        #0b66c3,
+        #2196f3
+    );
+
+    color:white;
+
+    text-align:center;
+
+    padding:22px;
+
+    border-radius:18px;
+
+    box-shadow:
+    0 8px 25px
+    rgba(11,102,195,.30);
 
 }
 
-.buttons{
+/* ==========================================================
+   SEMESTER LABEL
+========================================================== */
+
+.semester-label{
+
+    display:block;
+
+    font-size:14px;
+
+    letter-spacing:2px;
+
+    color:#dcefff;
+
+    margin-bottom:8px;
+
+}
+
+/* ==========================================================
+   SEMESTER TITLE
+========================================================== */
+
+.semester-card h2{
+
+    font-size:34px;
+
+    text-transform:uppercase;
+
+}
+
+/* ==========================================================
+   END OF PART 1
+========================================================== */
+/* ==========================================================
+   CLASS ACTIVITY MANAGEMENT SYSTEM
+   VERSION 4.0
+   PART 2
+   Information Section + Table Section
+========================================================== */
+
+/* ==========================================================
+   INFORMATION SECTION
+========================================================== */
+
+.information-section{
+
+    padding:35px;
+
+}
+
+/* ==========================================================
+   INFORMATION CARD
+========================================================== */
+
+.information-card{
+
+    background:#f8fbff;
+
+    border-radius:18px;
+
+    padding:30px;
+
+    box-shadow:
+    0 8px 25px
+    rgba(0,0,0,.08);
+
+}
+
+/* ==========================================================
+   INFORMATION TITLE
+========================================================== */
+
+.information-card h2{
+
+    color:#0b66c3;
+
+    font-size:30px;
+
+    margin-bottom:28px;
+
+}
+
+/* ==========================================================
+   INFORMATION GRID
+========================================================== */
+
+.information-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(260px,1fr));
+
+    gap:25px;
+
+}
+
+/* ==========================================================
+   INPUT GROUP
+========================================================== */
+
+.input-group{
+
+    display:flex;
 
     flex-direction:column;
 
 }
 
-.buttons button{
+/* ==========================================================
+   LABEL
+========================================================== */
+
+.input-group label{
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    color:#003366;
+
+    margin-bottom:10px;
+
+}
+
+/* ==========================================================
+   INPUT
+========================================================== */
+
+.input-group input{
+
+    width:100%;
+
+    padding:14px;
+
+    border:2px solid #d7e4f4;
+
+    border-radius:10px;
+
+    outline:none;
+
+    font-size:15px;
+
+    transition:.30s;
+
+    background:white;
+
+}
+
+.input-group input:focus{
+
+    border-color:#0b66c3;
+
+    box-shadow:
+    0 0 10px
+    rgba(11,102,195,.20);
+
+}
+
+/* ==========================================================
+   UPDATE BUTTON AREA
+========================================================== */
+
+.update-button{
+
+    justify-content:flex-end;
+
+}
+
+/* ==========================================================
+   UPDATE BUTTON
+========================================================== */
+
+.update-button button{
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#198754;
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.30s;
+
+}
+
+.update-button button:hover{
+
+    background:#157347;
+
+    transform:translateY(-2px);
+
+}
+
+/* ==========================================================
+   TABLE SECTION
+========================================================== */
+
+.table-section{
+
+    padding:0 35px 35px;
+
+}
+
+/* ==========================================================
+   TABLE CARD
+========================================================== */
+
+.table-card{
+
+    background:white;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 8px 25px
+    rgba(0,0,0,.08);
+
+}
+
+/* ==========================================================
+   TABLE HEADER
+========================================================== */
+
+.table-header{
+
+    background:linear-gradient(
+        135deg,
+        #0b66c3,
+        #2196f3
+    );
+
+    color:white;
+
+    padding:25px 30px;
+
+}
+
+.table-header h2{
+
+    font-size:28px;
+
+    margin-bottom:8px;
+
+}
+
+.table-header p{
+
+    color:#eef8ff;
+
+    font-size:16px;
+
+}
+
+/* ==========================================================
+   RESPONSIVE TABLE
+========================================================== */
+
+.table-responsive{
+
+    overflow-x:auto;
+
+}
+
+/* ==========================================================
+   TABLE
+========================================================== */
+
+#activityTable{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+/* ==========================================================
+   TABLE HEADER
+========================================================== */
+
+#activityTable thead{
+
+    background:#0b66c3;
+
+    color:white;
+
+}
+
+#activityTable th{
+
+    padding:15px;
+
+    font-size:15px;
+
+    text-align:center;
+
+    font-weight:bold;
+
+    border:1px solid #dfe7ef;
+
+}
+
+/* ==========================================================
+   TABLE BODY
+========================================================== */
+
+#activityTable td{
+
+    padding:12px;
+
+    text-align:center;
+
+    border:1px solid #e5e5e5;
+
+}
+
+/* ==========================================================
+   TABLE ROWS
+========================================================== */
+
+#activityTable tbody tr:nth-child(even){
+
+    background:#f8fbff;
+
+}
+
+#activityTable tbody tr:hover{
+
+    background:#e9f4ff;
+
+}
+
+/* ==========================================================
+   END OF PART 2
+========================================================== */
+/* ==========================================================
+   CLASS ACTIVITY MANAGEMENT SYSTEM
+   VERSION 4.0
+   PART 3
+   Table Inputs + Buttons + Notes + Footer
+========================================================== */
+
+/* ==========================================================
+   TABLE INPUTS
+========================================================== */
+
+#activityTable input{
+
+    width:75px;
+
+    max-width:100%;
+
+    padding:8px;
+
+    text-align:center;
+
+    border:1px solid #cfd8dc;
+
+    border-radius:6px;
+
+    outline:none;
+
+    font-size:14px;
+
+    transition:.30s;
+
+}
+
+#activityTable input:focus{
+
+    border-color:#0b66c3;
+
+    box-shadow:
+    0 0 8px
+    rgba(11,102,195,.25);
+
+}
+
+/* ==========================================================
+   SUBJECT COLUMN
+========================================================== */
+
+.subject-name{
+
+    text-align:left;
+
+    font-weight:bold;
+
+    color:#003366;
+
+    padding-left:14px;
+
+}
+
+/* ==========================================================
+   TOTAL
+========================================================== */
+
+.total-cell{
+
+    font-weight:bold;
+
+    color:#198754;
+
+}
+
+/* ==========================================================
+   PERCENTAGE
+========================================================== */
+
+.percentage-cell{
+
+    font-weight:bold;
+
+    color:#0b66c3;
+
+}
+
+/* ==========================================================
+   REMARKS
+========================================================== */
+
+.remarks-cell{
+
+    font-weight:bold;
+
+}
+
+/* ==========================================================
+   REMOVE BUTTON
+========================================================== */
+
+.remove-btn{
+
+    background:#dc3545;
+
+    color:white;
+
+    border:none;
+
+    padding:8px 14px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    transition:.30s;
+
+}
+
+.remove-btn:hover{
+
+    background:#bb2d3b;
+
+    transform:scale(1.05);
+
+}
+
+/* ==========================================================
+   ACTION SECTION
+========================================================== */
+
+.action-section{
+
+    padding:0 35px 35px;
+
+}
+
+.action-card{
+
+    background:#f8fbff;
+
+    border-radius:18px;
+
+    padding:30px;
+
+    text-align:center;
+
+    box-shadow:
+    0 8px 25px
+    rgba(0,0,0,.08);
+
+}
+
+.action-card h2{
+
+    color:#0b66c3;
+
+    font-size:28px;
+
+    margin-bottom:10px;
+
+}
+
+.action-card p{
+
+    color:#666;
+
+    margin-bottom:28px;
+
+    font-size:16px;
+
+}
+
+/* ==========================================================
+   ACTION GRID
+========================================================== */
+
+.action-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:18px;
+
+}
+
+/* ==========================================================
+   COMMON BUTTON STYLE
+========================================================== */
+
+.action-grid button{
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:16px;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.30s;
+
+    box-shadow:
+    0 6px 18px
+    rgba(0,0,0,.15);
+
+}
+
+.action-grid button:hover{
+
+    transform:translateY(-3px);
+
+}
+
+/* ==========================================================
+   BUTTON COLORS
+========================================================== */
+
+.primary-btn{
+
+    background:#0b66c3;
+
+}
+
+.success-btn{
+
+    background:#28a745;
+
+}
+
+.warning-btn{
+
+    background:#ff9800;
+
+}
+
+.info-btn{
+
+    background:#17a2b8;
+
+}
+
+.secondary-btn{
+
+    background:#6c757d;
+
+}
+
+/* ==========================================================
+   NOTE SECTION
+========================================================== */
+
+.note-section{
+
+    padding:0 35px 35px;
+
+}
+
+.note-card{
+
+    background:#fff8e8;
+
+    border-left:6px solid #ff9800;
+
+    border-radius:15px;
+
+    padding:28px;
+
+    box-shadow:
+    0 6px 18px
+    rgba(0,0,0,.08);
+
+}
+
+.note-card h3{
+
+    color:#e67e22;
+
+    font-size:24px;
+
+    margin-bottom:18px;
+
+}
+
+.note-card ul{
+
+    padding-left:22px;
+
+}
+
+.note-card li{
+
+    margin-bottom:12px;
+
+    line-height:28px;
+
+    color:#444;
+
+    font-size:15px;
+
+}
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+
+.main-footer{
+
+    background:linear-gradient(
+        135deg,
+        #0b66c3,
+        #1677d8
+    );
+
+    color:white;
+
+    text-align:center;
+
+    padding:25px;
+
+}
+
+.footer-content p{
+
+    margin:5px 0;
+
+    font-size:15px;
+
+}
+
+/* ==========================================================
+   END OF PART 3
+========================================================== */
+/* ==========================================================
+   CLASS ACTIVITY MANAGEMENT SYSTEM
+   VERSION 4.0
+   PART 4
+   Responsive Design + Animation + Print
+========================================================== */
+
+/* ==========================================================
+   FADE ANIMATION
+========================================================== */
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ==========================================================
+   SMOOTH TRANSITIONS
+========================================================== */
+
+button,
+input,
+table,
+th,
+td,
+.logo{
+
+    transition:.30s ease;
+
+}
+
+/* ==========================================================
+   INPUT EFFECTS
+========================================================== */
+
+input::placeholder{
+
+    color:#999;
+
+}
+
+input:hover{
+
+    border-color:#0b66c3;
+
+}
+
+input:focus{
+
+    background:#f8fbff;
+
+}
+
+/* ==========================================================
+   BUTTON STATES
+========================================================== */
+
+button:active{
+
+    transform:scale(.97);
+
+}
+
+button:disabled{
+
+    background:#9e9e9e !important;
+
+    cursor:not-allowed;
+
+    box-shadow:none;
+
+    transform:none;
+
+}
+
+/* ==========================================================
+   CUSTOM SCROLLBAR
+========================================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+    height:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#edf3fb;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#0b66c3;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#084f97;
+
+}
+
+/* ==========================================================
+   TEXT SELECTION
+========================================================== */
+
+::selection{
+
+    background:#0b66c3;
+
+    color:white;
+
+}
+
+/* ==========================================================
+   TABLET RESPONSIVE
+========================================================== */
+
+@media(max-width:992px){
+
+.main-header{
+
+    flex-direction:column;
+
+    text-align:center;
+
+}
+
+.logo{
+
+    width:95px;
+
+    height:95px;
+
+}
+
+.header-right h1{
+
+    font-size:30px;
+
+}
+
+.header-right h2{
+
+    font-size:21px;
+
+}
+
+.header-right h3{
+
+    font-size:23px;
+
+}
+
+.information-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+.action-grid{
+
+    grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+/* ==========================================================
+   MOBILE RESPONSIVE
+========================================================== */
+
+@media(max-width:768px){
+
+.page-wrapper{
+
+    padding:15px 0;
+
+}
+
+.container{
+
+    width:97%;
+
+}
+
+.main-header{
+
+    padding:25px;
+
+}
+
+.logo{
+
+    width:80px;
+
+    height:80px;
+
+}
+
+.header-right h1{
+
+    font-size:24px;
+
+}
+
+.header-right h2{
+
+    font-size:18px;
+
+}
+
+.header-right h3{
+
+    font-size:20px;
+
+}
+
+.header-subtitle{
+
+    font-size:14px;
+
+    line-height:24px;
+
+}
+
+.semester-card{
 
     width:100%;
 
 }
 
-.search-section button{
+.information-section,
+.table-section,
+.action-section,
+.note-section{
+
+    padding:20px;
+
+}
+
+.information-card,
+.table-card,
+.action-card,
+.note-card{
+
+    padding:22px;
+
+}
+
+.action-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+.action-grid button{
 
     width:100%;
 
@@ -548,14 +1222,20 @@ header h3{
 
 #activityTable{
 
-    font-size:13px;
+    display:block;
+
+    overflow-x:auto;
+
+    white-space:nowrap;
 
 }
 
 #activityTable th,
 #activityTable td{
 
-    padding:8px;
+    padding:9px;
+
+    font-size:13px;
 
 }
 
@@ -565,17 +1245,50 @@ header h3{
 
 }
 
+.main-footer{
+
+    padding:20px;
+
 }
 
-/* ==========================
-   PRINT
-========================== */
+.footer-content p{
+
+    font-size:14px;
+
+}
+
+}
+
+/* ==========================================================
+   LARGE SCREEN
+========================================================== */
+
+@media(min-width:1500px){
+
+.container{
+
+    max-width:1550px;
+
+}
+
+}
+
+/* ==========================================================
+   PRINT MODE
+========================================================== */
 
 @media print{
 
 body{
 
-    background:#fff;
+    background:white;
+
+    padding:0;
+
+}
+
+.page-wrapper{
+
     padding:0;
 
 }
@@ -583,16 +1296,42 @@ body{
 .container{
 
     width:100%;
+
     box-shadow:none;
+
     border:none;
+
+    border-radius:0;
 
 }
 
-.buttons,
-.search-section,
-.marks-config{
+.action-section,
+.note-section,
+.update-button{
 
     display:none;
+
+}
+
+.main-header{
+
+    color:black;
+
+    background:white;
+
+    border-bottom:2px solid #000;
+
+}
+
+.semester-card{
+
+    color:black;
+
+    background:white;
+
+    border:2px solid #000;
+
+    box-shadow:none;
 
 }
 
@@ -610,32 +1349,7 @@ body{
 
 }
 
-/* ==========================
-   SMOOTH TRANSITION
-========================== */
-
-button,
-input,
-table,
-th,
-td{
-
-    transition:.3s ease;
-
-}
-
-html{
-
-    scroll-behavior:smooth;
-
-}
-
-body{
-
-    padding-bottom:40px;
-
-}
-
-/* =====================================
-   END OF CLASS ACTIVITY CSS
-===================================== */
+/* ==========================================================
+   END OF CLASS_ACTIVITY.CSS
+   VERSION 4.0
+========================================================== */

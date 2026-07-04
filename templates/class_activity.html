@@ -17,242 +17,494 @@
 
 <body>
 
+<div class="page-wrapper">
+
 <div class="container">
 
-    <!-- ==========================
-         HEADER
-    =========================== -->
+<!-- ==========================================================
+     HEADER
+========================================================== -->
 
-    <header>
+<header class="main-header">
 
-        <img src="{{ url_for('static', filename='images/logo.jpg') }}"
-             class="logo"
-             alt="College Logo">
+    <div class="header-left">
 
-        <h1>VEERAYATAN POLYTECHNIC</h1>
-
-        <h2>Computer Engineering Department</h2>
-
-        <h3>CLASS ACTIVITY MANAGEMENT</h3>
-
-    </header>
-
-    <!-- ==========================
-         SEMESTER
-    =========================== -->
-
-    <div class="semester-title">
-
-        <h2 id="semester">{{ semester }}</h2>
+        <img
+            src="{{ url_for('static', filename='images/logo.jpg') }}"
+            alt="College Logo"
+            class="logo">
 
     </div>
 
-    <!-- ==========================
-         FACULTY & DATE
-    =========================== -->
+    <div class="header-right">
 
-    <div class="info-section">
+        <h1>
+            VEERAYATAN POLYTECHNIC
+        </h1>
 
-        <div>
+        <h2>
+            Computer Engineering Department
+        </h2>
 
-            <label for="faculty">
-                Faculty Name
-            </label>
+        <h3>
+            CLASS ACTIVITY MANAGEMENT SYSTEM
+        </h3>
 
-            <input
-                type="text"
-                id="faculty"
-                placeholder="Enter Faculty Name">
+        <p class="header-subtitle">
 
-        </div>
-
-        <div>
-
-            <label for="date">
-                Date
-            </label>
-
-            <input
-                type="date"
-                id="date">
-
-        </div>
-
-    </div>
-
-    <!-- ==========================
-         CLASS ACTIVITY TABLE
-    =========================== -->
-
-    <table id="activityTable">
-
-        <thead>
-
-            <tr>
-
-                <th>Sr. No.</th>
-
-                <th>Student Name</th>
-
-                <th style="display:none;">
-                    Enrollment
-                </th>
-
-                <th>Subject</th>
-
-                <th id="assignmentHeading">
-                    Assignment (20)
-                </th>
-
-                <th id="practicalHeading">
-                    Practical (30)
-                </th>
-
-                <th id="projectHeading">
-                    Project (20)
-                </th>
-				<th>Total</th>
-
-                <th>Percentage</th>
-
-                <th>Remarks</th>
-
-                <th>Action</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody id="activityBody">
-
-            <!-- JavaScript will create rows here -->
-
-        </tbody>
-
-    </table>
-
-    <!-- ==========================
-         INFORMATION
-    =========================== -->
-
-    <div class="subject-info">
-
-        <p>
-
-            <strong>Note:</strong>
-
-            Select the first student using
-            <strong>Enter Student Name</strong>.
-
-            After adding subjects for the first student,
-            use <strong>Attendance Add</strong> to automatically
-            create the remaining students with the same subjects.
+            Manage student subjects, assignments,
+            practicals, projects and overall
+            academic performance from one place.
 
         </p>
 
     </div>
 
-    <!-- ==========================
-         ACTION BUTTONS
-    =========================== -->
+</header>
 
-    <div class="buttons">
+<!-- ==========================================================
+     SEMESTER SECTION
+========================================================== -->
 
-        <button
-            id="manageSubjectBtn"
-            onclick="manageSubject()"
-            disabled>
+<section class="semester-section">
 
-            Manage Subjects
+    <div class="semester-card">
 
-        </button>
+        <span class="semester-label">
 
-        
-		<button 
-		    onclick="selectTemplateStudent()">
-			
-            Select Template Student
-			
-        </button>
+            CURRENT SEMESTER
 
-        <button
-            onclick="attendanceAdd()">
+        </span>
 
-            Attendance Add
+        <h2 id="semester">
 
-        </button>
+            {{ semester }}
 
-        <button
-            onclick="saveActivity()">
-
-            Save Data
-
-        </button>
-		<button
-            onclick="downloadActivity()">
-
-            Download Excel
-
-        </button>
-
-        <button
-            onclick="printActivity()">
-
-            Print
-
-        </button>
-
-        <button
-            onclick="goHome()">
-
-            Home
-
-        </button>
+        </h2>
 
     </div>
 
-    <!-- ==========================
-         FOOTER NOTE
-    =========================== -->
+</section>
 
-    <div class="subject-info">
+<!-- ==========================================================
+     INFORMATION SECTION
+========================================================== -->
 
-        <p>
+<section class="information-section">
 
-            <strong>Instructions:</strong>
+<div class="information-card">
 
-            Select only the first student manually.
+<h2>
 
-            Add all required subjects once.
+Faculty Information
 
-            Click <strong>Attendance Add</strong> to automatically
-            create Class Activity records for all remaining students.
+</h2>
 
-            Enter marks and click
-            <strong>Save Data</strong> to save all records.
+<div class="information-grid">
 
-        </p>
+<div class="input-group">
 
-    </div>
+<label for="faculty">
+
+Faculty Name
+
+</label>
+
+<input
+type="text"
+id="faculty"
+placeholder="Enter Faculty Name">
 
 </div>
-<!-- ==========================
+
+<div class="input-group">
+
+<label for="date">
+
+Activity Date
+
+</label>
+
+<input
+type="date"
+id="date">
+
+</div>
+<div class="input-group">
+
+<label>
+
+Maximum Assignment Marks
+
+</label>
+
+<input
+type="number"
+id="assignmentMaxInput"
+value="20"
+min="1">
+
+</div>
+
+<div class="input-group">
+
+<label>
+
+Maximum Practical Marks
+
+</label>
+
+<input
+type="number"
+id="practicalMaxInput"
+value="30"
+min="1">
+
+</div>
+
+<div class="input-group">
+
+<label>
+
+Maximum Project Marks
+
+</label>
+
+<input
+type="number"
+id="projectMaxInput"
+value="20"
+min="1">
+
+</div>
+
+<div class="input-group update-button">
+
+<label>
+
+Update Maximum Marks
+
+</label>
+
+<button
+type="button"
+onclick="updateMaximumMarks()">
+
+Update Marks
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ==========================================================
+     CLASS ACTIVITY TABLE
+========================================================== -->
+
+<section class="table-section">
+
+<div class="table-card">
+
+<div class="table-header">
+
+<h2>
+
+Class Activity Records
+
+</h2>
+
+<p>
+
+Enter Assignment, Practical and Project marks for every student.
+
+</p>
+
+</div>
+
+<div class="table-responsive">
+
+<table id="activityTable">
+
+<thead>
+
+<tr>
+
+<th>Sr. No.</th>
+
+<th>Student Name</th>
+
+<th style="display:none;">
+
+Enrollment
+
+</th>
+
+<th>
+
+Subject
+
+</th>
+
+<th id="assignmentHeading">
+
+Assignment (20)
+
+</th>
+
+<th id="practicalHeading">
+
+Practical (30)
+
+</th>
+
+<th id="projectHeading">
+
+Project (20)
+
+</th>
+
+<th>
+
+Total
+
+</th>
+
+<th>
+
+Percentage
+
+</th>
+
+<th>
+
+Remarks
+
+</th>
+
+<th>
+
+Action
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody id="activityBody">
+
+<!-- JavaScript will generate rows -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+<!-- ==========================================================
+     ACTION SECTION
+========================================================== -->
+
+<section class="action-section">
+
+<div class="action-card">
+
+<h2>
+
+Activity Controls
+
+</h2>
+
+<p>
+
+Use the buttons below to manage the complete class activity process.
+
+</p>
+
+<div class="action-grid">
+
+<button
+id="manageSubjectBtn"
+class="primary-btn"
+onclick="manageSubject()"
+disabled>
+
+Manage Subjects
+
+</button>
+
+<button
+class="info-btn"
+onclick="selectTemplateStudent()">
+
+Select Template Student
+
+</button>
+
+<button
+class="warning-btn"
+onclick="attendanceAdd()">
+
+Attendance Add
+
+</button>
+
+<button
+class="success-btn"
+onclick="saveActivity()">
+
+Save Data
+
+</button>
+
+<button
+class="primary-btn"
+onclick="downloadActivity()">
+
+Download Excel
+
+</button>
+
+<button
+class="secondary-btn"
+onclick="printActivity()">
+
+Print
+
+</button>
+
+<button
+class="secondary-btn"
+onclick="goHome()">
+
+Home
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ==========================================================
+     INSTRUCTIONS
+========================================================== -->
+
+<section class="note-section">
+
+<div class="note-card">
+
+<h3>
+
+Instructions
+
+</h3>
+
+<ul>
+
+<li>
+
+Select the <strong>Template Student</strong> first.
+
+</li>
+
+<li>
+
+Add all required subjects only once using
+<strong>Manage Subjects</strong>.
+
+</li>
+
+<li>
+
+Click <strong>Attendance Add</strong> to automatically
+create records for every student.
+
+</li>
+
+<li>
+
+Enter Assignment, Practical and Project marks.
+
+</li>
+
+<li>
+
+Click <strong>Save Data</strong> to store all records safely.
+
+</li>
+
+<li>
+
+Use <strong>Download Excel</strong> to export the activity sheet.
+
+</li>
+
+</ul>
+
+</div>
+
+</section>
+<!-- ==========================================================
+     FOOTER
+========================================================== -->
+
+<footer class="main-footer">
+
+<div class="footer-content">
+
+<p>
+
+© 2026 Veerayatan Polytechnic
+
+</p>
+
+<p>
+
+Computer Engineering Department
+
+</p>
+
+<p>
+
+Smart Attendance System & Class Activity Management
+
+</p>
+
+</div>
+
+</footer>
+
+</div>
+
+</div>
+
+<!-- ==========================================================
      JAVASCRIPT
-========================== -->
+========================================================== -->
 
 <script src="{{ url_for('static', filename='js/class_activity.js') }}"></script>
 
 <script>
 
-function printActivity() {
+function printActivity(){
 
     window.print();
 
 }
 
-function goHome() {
+function goHome(){
 
-    window.location.href = "/";
+    window.location.href="/";
 
 }
 

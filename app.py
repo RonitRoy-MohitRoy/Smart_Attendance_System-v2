@@ -143,6 +143,7 @@ def get_all(semester):
 
 @app.route("/download_excel/<semester>")
 def download_excel(semester):
+    semester=semester.upper()
 
     try:
 

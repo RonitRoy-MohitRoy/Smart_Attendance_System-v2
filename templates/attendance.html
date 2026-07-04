@@ -4,94 +4,457 @@
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Smart Attendance System</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/attendance.css') }}">
+    <title>Attendance</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/attendance.css') }}">
 
 </head>
 
 <body>
 
+<div class="page-wrapper">
+
 <div class="container">
 
-    <!-- Header -->
-    <header>
-        <img src="{{ url_for('static', filename='images/logo.jpg') }}" class="logo">
+<!-- ==========================================================
+     HEADER
+========================================================== -->
+
+<header class="main-header">
+
+    <div class="header-left">
+
+        <img src="{{ url_for('static', filename='images/logo.jpg') }}"
+             class="logo"
+             alt="College Logo">
+
+    </div>
+
+    <div class="header-right">
 
         <h1>VEERAYATAN POLYTECHNIC</h1>
+
         <h2>Computer Engineering Department</h2>
-        <h3>SMART ATTENDANCE SYSTEM</h3>
-    </header>
 
-    <!-- Semester -->
-    <div class="semester-title">
-        <h2 id="semester">{{ semester }}</h2>
-    </div>
+        <h3>Class Activity SYSTEM</h3>
 
-    <!-- Information -->
-    <div class="info-section">
+        <p class="header-subtitle">
 
-        <div>
-            <label>Subject Name</label>
-            <input type="text" id="subject" placeholder="Enter Subject Name">
-        </div>
+            Student Internal Assessment &
+            Academic Performance Management
 
-        <div>
-            <label>Faculty Name</label>
-            <input type="text" id="faculty" placeholder="Enter Faculty Name">
-        </div>
-
-        <div>
-            <label>Date</label>
-            <input type="date" id="date">
-        </div>
+        </p>
 
     </div>
 
-    <!-- Attendance Table -->
-    <table id="attendanceTable">
-        <thead>
-            <tr>
-                <th>Sr. No.</th>
-                <th>Student Name</th>
-                <th>Enrollment Number</th>
-                <th>Status</th>
-                <th>Remove</th>
-            </tr>
-        </thead>
+</header>
 
-        <tbody></tbody>
-    </table>
+<!-- ==========================================================
+     SEMESTER CARD
+========================================================== -->
 
-    <!-- Student Entry -->
-    <div class="student-entry">
+<section class="semester-section">
 
-        <input type="text" id="studentName" placeholder="Student Full Name">
-        <input type="text" id="enrollment" placeholder="Enrollment Number">
+    <div class="semester-card">
 
-    </div>
+        <span class="semester-label">
 
-    <!-- Buttons -->
-    <div class="buttons">
+            CURRENT SEMESTER
 
-        <button onclick="addStudent()">Add Student</button>
+        </span>
 
-        <button onclick="saveData()">Save Data</button>
+        <h2 id="semester">
 
-        <button onclick="downloadData('{{semester}}')"> DOWNLOAD EXCEL </button>
+            {{ semester }}
 
-        <button onclick="window.print()">Print</button>
-
-        <button onclick="location.href='/'">Home</button>
+        </h2>
 
     </div>
+
+</section>
+
+<!-- ==========================================================
+     INFORMATION CARD
+========================================================== -->
+
+<section class="information-section">
+
+<div class="information-card">
+
+<h2>
+
+Activity Information
+
+</h2>
+
+<div class="information-grid">
+
+<!-- Subject -->
+
+<div class="input-group">
+
+<label>
+
+Subject Name
+
+</label>
+
+<input
+type="text"
+id="subject"
+placeholder="Enter Subject Name">
 
 </div>
 
-<!-- ✅ FIX: Script must be inside body -->
+<!-- Faculty -->
+
+<div class="input-group">
+
+<label>
+
+Faculty Name
+
+</label>
+
+<input
+type="text"
+id="faculty"
+placeholder="Enter Faculty Name">
+
+</div>
+
+<!-- Date -->
+
+<div class="input-group">
+
+<label>
+
+Activity Date
+
+</label>
+
+<input
+type="date"
+id="date">
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ==========================================================
+     PART 1 END
+========================================================== -->
+<!-- ==========================================================
+     STUDENT RECORD SECTION
+========================================================== -->
+
+<section class="table-section">
+
+<div class="table-card">
+
+<div class="table-header">
+
+<div>
+
+<h2>
+
+Student Activity Records
+
+</h2>
+
+<p>
+
+Manage assignment, practical and project activity records
+
+</p>
+
+</div>
+
+</div>
+
+<div class="table-responsive">
+
+<table id="attendanceTable">
+
+<thead>
+
+<tr>
+
+<th style="width:80px;">
+
+Sr. No.
+
+</th>
+
+<th>
+
+Student Name
+
+</th>
+
+<th>
+
+Enrollment Number
+
+</th>
+
+<th style="width:170px;">
+
+Status
+
+</th>
+
+<th style="width:130px;">
+
+Remove
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<!-- JavaScript will add rows here -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ==========================================================
+     STUDENT ENTRY SECTION
+========================================================== -->
+
+<section class="entry-section">
+
+<div class="entry-card">
+
+<h2>
+
+Add New Student
+
+</h2>
+
+<div class="entry-grid">
+
+<div class="input-group">
+
+<label>
+
+Student Full Name
+
+</label>
+
+<input
+type="text"
+id="studentName"
+placeholder="Enter Student Full Name">
+
+</div>
+
+<div class="input-group">
+
+<label>
+
+Enrollment Number
+
+</label>
+
+<input
+type="text"
+id="enrollment"
+placeholder="Enter Enrollment Number">
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ==========================================================
+     PART 2 END
+========================================================== -->
+<!-- ==========================================================
+     ACTION BUTTONS
+========================================================== -->
+
+<section class="action-section">
+
+<div class="action-card">
+
+<h2>
+
+Quick Actions
+
+</h2>
+
+<p>
+
+Perform all class activity operations from here.
+
+</p>
+
+<div class="action-grid">
+
+<button
+class="primary-btn"
+onclick="addStudent()">
+
+➕ Add Student
+
+</button>
+
+<button
+class="success-btn"
+onclick="saveData()">
+
+💾 Save Data
+
+</button>
+
+<button
+class="info-btn"
+onclick="downloadData('{{ semester }}')">
+
+📥 Download Excel
+
+</button>
+
+<button
+class="warning-btn"
+onclick="window.print()">
+
+🖨️ Print
+
+</button>
+
+<button
+class="secondary-btn"
+onclick="location.href='/'">
+
+🏠 Home
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ==========================================================
+     INFORMATION CARD
+========================================================== -->
+
+<section class="note-section">
+
+<div class="note-card">
+
+<h3>
+
+Important Instructions
+
+</h3>
+
+<ul>
+
+<li>
+Enter Subject, Faculty Name and Date before saving.
+</li>
+
+<li>
+Use the <strong>Add Student</strong> button to add new students.
+</li>
+
+<li>
+Select the attendance status carefully before saving.
+</li>
+
+<li>
+Use <strong>Download Excel</strong> to export all attendance records.
+</li>
+
+<li>
+Print option generates a clean printable attendance sheet.
+</li>
+
+</ul>
+
+</div>
+
+</section>
+
+<!-- ==========================================================
+     PART 3 END
+========================================================== -->
+<!-- ==========================================================
+     FOOTER
+========================================================== -->
+
+<footer class="main-footer">
+
+<div class="footer-content">
+
+<p>
+
+© 2026 Veerayatan Polytechnic
+
+</p>
+
+<p>
+
+Computer Engineering Department
+
+</p>
+
+<p>
+
+Smart Attendance System &
+Class Activity Management
+
+</p>
+
+</div>
+
+</footer>
+
+</div>
+<!-- End Container -->
+
+</div>
+<!-- End Page Wrapper -->
+
+
+<!-- ==========================================================
+     JAVASCRIPT
+========================================================== -->
+
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
+
 </html>
+
+<!-- ==========================================================
+     END OF CLASS_ACTIVITY.HTML
+     VERSION 3.0
+========================================================== -->
