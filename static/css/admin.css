@@ -1,0 +1,858 @@
+/* =========================================
+   GLOBAL RESET
+========================================= */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+/* =========================================
+   BODY
+========================================= */
+
+body{
+
+    font-family:Arial, Helvetica, sans-serif;
+
+    background:#f4f7fc;
+
+    color:#222;
+
+    min-height:100vh;
+
+}
+
+/* =========================================
+   MAIN LOGIN CONTAINER
+========================================= */
+
+.login-container{
+
+    width:100%;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px 20px;
+
+}
+
+/* =========================================
+   MAIN LOGIN CARD
+========================================= */
+
+.login-card{
+
+    width:100%;
+
+    max-width:650px;
+
+    background:#ffffff;
+
+    border-radius:18px;
+
+    padding:40px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,0.15);
+
+}
+/* =========================================
+   LOGIN HEADER
+========================================= */
+
+.login-header{
+
+    text-align:center;
+
+    margin-bottom:35px;
+
+}
+
+/* =========================================
+   LOGO SECTION
+========================================= */
+
+.logo-section{
+
+    margin-bottom:20px;
+
+}
+
+/* =========================================
+   COLLEGE LOGO
+========================================= */
+
+.college-logo{
+
+    width:120px;
+
+    height:120px;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    border:4px solid #0d6efd;
+
+    background:#ffffff;
+
+    padding:6px;
+
+    box-shadow:
+        0 4px 12px
+        rgba(0,0,0,0.15);
+
+}
+
+/* =========================================
+   COLLEGE DETAILS
+========================================= */
+
+.college-details{
+
+    width:100%;
+
+}
+
+/* Main Heading */
+
+.college-details h1{
+
+    font-size:32px;
+
+    color:#0d47a1;
+
+    margin-bottom:10px;
+
+    font-weight:bold;
+
+}
+
+/* Department */
+
+.college-details h2{
+
+    font-size:22px;
+
+    color:#333333;
+
+    margin-bottom:10px;
+
+    font-weight:600;
+
+}
+
+/* System Title */
+
+.college-details h3{
+
+    font-size:20px;
+
+    color:#198754;
+
+    margin-bottom:15px;
+
+    font-weight:bold;
+
+    text-transform:uppercase;
+
+}
+
+/* Description */
+
+.system-description{
+
+    font-size:16px;
+
+    color:#666666;
+
+    line-height:1.6;
+
+    max-width:500px;
+
+    margin:0 auto;
+
+}
+/* =========================================
+   LOGIN SECTION
+========================================= */
+
+.login-section{
+
+    width:100%;
+
+    margin-top:20px;
+
+}
+
+/* =========================================
+   LOGIN TITLE
+========================================= */
+
+.login-section h2{
+
+    text-align:center;
+
+    font-size:28px;
+
+    color:#0d47a1;
+
+    margin-bottom:10px;
+
+    font-weight:bold;
+
+}
+
+/* =========================================
+   LOGIN DESCRIPTION
+========================================= */
+
+.login-section p{
+
+    text-align:center;
+
+    font-size:16px;
+
+    color:#666666;
+
+    line-height:1.6;
+
+    margin-bottom:30px;
+
+}
+
+/* =========================================
+   INPUT GROUP
+========================================= */
+
+.input-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    margin-bottom:22px;
+
+}
+
+/* =========================================
+   LABEL
+========================================= */
+
+.input-group label{
+
+    font-size:16px;
+
+    font-weight:600;
+
+    color:#333333;
+
+    margin-bottom:8px;
+
+}
+
+/* =========================================
+   INPUT BOX
+========================================= */
+
+.input-group input{
+
+    width:100%;
+
+    height:52px;
+
+    padding:0 15px;
+
+    font-size:16px;
+
+    color:#222222;
+
+    background:#ffffff;
+
+    border:2px solid #d6d6d6;
+
+    border-radius:10px;
+
+    outline:none;
+
+    transition:0.3s ease;
+
+}
+
+/* =========================================
+   PLACEHOLDER
+========================================= */
+
+.input-group input::placeholder{
+
+    color:#999999;
+
+}
+/* =========================================
+   INPUT FOCUS EFFECT
+========================================= */
+
+.input-group input:focus{
+
+    border:2px solid #0d6efd;
+
+    box-shadow:
+        0 0 10px
+        rgba(13,110,253,0.25);
+
+}
+
+/* =========================================
+   INPUT HOVER EFFECT
+========================================= */
+
+.input-group input:hover{
+
+    border-color:#0d6efd;
+
+}
+
+/* =========================================
+   LOGIN OPTIONS
+========================================= */
+
+.login-options{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-top:10px;
+
+    margin-bottom:30px;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
+}
+
+/* =========================================
+   CHECKBOX LABEL
+========================================= */
+
+.login-options label{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    font-size:15px;
+
+    color:#444444;
+
+    cursor:pointer;
+
+    user-select:none;
+
+}
+
+/* =========================================
+   CHECKBOX
+========================================= */
+
+.login-options input[type="checkbox"]{
+
+    width:18px;
+
+    height:18px;
+
+    cursor:pointer;
+
+}
+
+/* =========================================
+   FORGOT PASSWORD
+========================================= */
+
+.forgot-password{
+
+    text-align:right;
+
+    margin-top:-10px;
+
+    margin-bottom:25px;
+
+}
+
+.forgot-password a{
+
+    text-decoration:none;
+
+    color:#0d6efd;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:0.3s;
+
+}
+
+.forgot-password a:hover{
+
+    color:#084298;
+
+    text-decoration:underline;
+
+}
+/* =========================================
+   BUTTON GROUP
+========================================= */
+
+.button-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+    margin-top:10px;
+
+}
+
+/* =========================================
+   COMMON BUTTON STYLE
+========================================= */
+
+.button-group button{
+
+    width:100%;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:10px;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.30s ease;
+
+}
+
+/* =========================================
+   LOGIN BUTTON
+========================================= */
+
+.login-btn{
+
+    background:#0d6efd;
+
+    color:#ffffff;
+
+}
+
+.login-btn:hover{
+
+    background:#0b5ed7;
+
+    transform:translateY(-2px);
+
+}
+
+/* =========================================
+   DISABLED LOGIN BUTTON
+========================================= */
+
+.login-btn:disabled{
+
+    background:#b0b0b0;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+}
+
+/* =========================================
+   LOGIN ACTIVITY BUTTON
+========================================= */
+
+.activity-btn{
+
+    background:#198754;
+
+    color:#ffffff;
+
+}
+
+.activity-btn:hover{
+
+    background:#157347;
+
+    transform:translateY(-2px);
+
+}
+
+.activity-btn:active,
+
+.login-btn:active{
+
+    transform:scale(0.98);
+
+}
+/* =========================================
+   LOGIN MESSAGE AREA
+========================================= */
+
+.login-message{
+
+    width:100%;
+
+    min-height:45px;
+
+    margin-top:20px;
+
+    padding:12px 15px;
+
+    border-radius:10px;
+
+    text-align:center;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    display:none;
+
+}
+
+/* =========================================
+   SUCCESS MESSAGE
+========================================= */
+
+.login-message.success{
+
+    display:block;
+
+    background:#d1e7dd;
+
+    color:#0f5132;
+
+    border:1px solid #badbcc;
+
+}
+
+/* =========================================
+   ERROR MESSAGE
+========================================= */
+
+.login-message.error{
+
+    display:block;
+
+    background:#f8d7da;
+
+    color:#842029;
+
+    border:1px solid #f5c2c7;
+
+}
+
+/* =========================================
+   WARNING MESSAGE
+========================================= */
+
+.login-message.warning{
+
+    display:block;
+
+    background:#fff3cd;
+
+    color:#664d03;
+
+    border:1px solid #ffecb5;
+
+}
+
+/* =========================================
+   INFO MESSAGE
+========================================= */
+
+.login-message.info{
+
+    display:block;
+
+    background:#cff4fc;
+
+    color:#055160;
+
+    border:1px solid #b6effb;
+
+}
+/* =========================================
+   LOGIN FOOTER
+========================================= */
+
+.login-footer{
+
+    margin-top:35px;
+
+    padding-top:20px;
+
+    border-top:1px solid #e0e0e0;
+
+    text-align:center;
+
+}
+
+/* =========================================
+   FOOTER TEXT
+========================================= */
+
+.login-footer p{
+
+    margin:6px 0;
+
+    font-size:14px;
+
+    color:#666666;
+
+    line-height:1.6;
+
+}
+
+/* =========================================
+   VERSION TEXT
+========================================= */
+
+.login-footer p:last-child{
+
+    font-weight:600;
+
+    color:#0d47a1;
+
+}
+
+/* =========================================
+   IMAGE SETTINGS
+========================================= */
+
+img{
+
+    max-width:100%;
+
+    display:block;
+
+}
+
+/* =========================================
+   LINK SETTINGS
+========================================= */
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+/* =========================================
+   BUTTON OUTLINE REMOVE
+========================================= */
+
+button{
+
+    outline:none;
+
+}
+
+/* =========================================
+   TEXT SELECTION
+========================================= */
+
+::selection{
+
+    background:#0d6efd;
+
+    color:#ffffff;
+
+}
+
+/* =========================================
+   SMOOTH SCROLL
+========================================= */
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+/* =========================================
+   TABLET RESPONSIVE
+========================================= */
+
+@media (max-width:768px){
+
+    .login-card{
+
+        padding:30px 25px;
+
+    }
+
+    .college-logo{
+
+        width:100px;
+
+        height:100px;
+
+    }
+
+    .college-details h1{
+
+        font-size:28px;
+
+    }
+
+    .college-details h2{
+
+        font-size:20px;
+
+    }
+
+    .college-details h3{
+
+        font-size:18px;
+
+    }
+
+    .login-section h2{
+
+        font-size:24px;
+
+    }
+
+}
+
+/* =========================================
+   MOBILE RESPONSIVE
+========================================= */
+
+@media (max-width:480px){
+
+    .login-container{
+
+        padding:20px 15px;
+
+    }
+
+    .login-card{
+
+        padding:25px 20px;
+
+        border-radius:15px;
+
+    }
+
+    .college-logo{
+
+        width:85px;
+
+        height:85px;
+
+    }
+
+    .college-details h1{
+
+        font-size:22px;
+
+    }
+
+    .college-details h2{
+
+        font-size:17px;
+
+    }
+
+    .college-details h3{
+
+        font-size:16px;
+
+    }
+
+    .system-description{
+
+        font-size:14px;
+
+    }
+
+    .login-section h2{
+
+        font-size:20px;
+
+    }
+
+    .login-section p{
+
+        font-size:14px;
+
+    }
+
+    .input-group input{
+
+        height:48px;
+
+        font-size:15px;
+
+    }
+
+    .button-group button{
+
+        height:50px;
+
+        font-size:16px;
+
+    }
+
+    .login-options{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+}
+
+/* =========================================
+   LARGE SCREEN
+========================================= */
+
+@media (min-width:1200px){
+
+    .login-card{
+
+        max-width:600px;
+
+    }
+
+}

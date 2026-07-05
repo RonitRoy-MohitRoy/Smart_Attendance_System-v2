@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- =========================================
+         BASIC SETTINGS
+    ========================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Smart Attendance System | Admin Login
+    </title>
+
+    <meta name="description"
+          content="Secure login page for Smart Attendance System. Only authorized administrators and faculty members can access the system.">
+
+    <meta name="author"
+          content="Ronit Choudhary">
+
+    <!-- =========================================
+         ADMIN STYLESHEET
+    ========================================== -->
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/admin.css') }}">
+
+</head>
+
+<body>
+
+<!-- =========================================
+     MAIN LOGIN CONTAINER
+========================================== -->
+
+<div class="login-container">
+
+    <!-- =========================================
+         LOGIN CARD START
+    ========================================== -->
+
+    <div class="login-card">
+
+        <!-- =====================================
+             HEADER SECTION
+        ====================================== -->
+
+        <header class="login-header">
+		<!-- =====================================
+                 COLLEGE LOGO
+            ====================================== -->
+
+            <div class="logo-section">
+
+                <img
+                    src="{{ url_for('static', filename='images/logo.jpg') }}"
+                    alt="Veerayatan Polytechnic Logo"
+                    class="college-logo">
+
+            </div>
+
+            <!-- =====================================
+                 COLLEGE DETAILS
+            ====================================== -->
+
+            <div class="college-details">
+
+                <h1>
+                    VEERAYATAN POLYTECHNIC
+                </h1>
+
+                <h2>
+                    Computer Engineering Department
+                </h2>
+
+                <h3>
+                    SMART ATTENDANCE SYSTEM
+                </h3>
+
+                <p class="system-description">
+
+                    Secure Login Portal for
+                    Administrator & Faculty Members
+
+                </p>
+
+            </div>
+
+        </header>
+
+        <!-- =====================================
+             LOGIN SECTION
+        ====================================== -->
+
+        <section class="login-section">
+
+            <h2>
+                Administrator & Faculty Login
+            </h2>
+
+            <p>
+
+                Enter your authorized username
+                and password to continue.
+
+            </p>
+			<!-- =====================================
+                 LOGIN FORM
+            ====================================== -->
+
+            <form
+                id="loginForm"
+                method="POST"
+                action="/login">
+
+                <!-- Username -->
+
+                <div class="input-group">
+
+                    <label for="username">
+
+                        Username
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter your username"
+                        autocomplete="username"
+                        required>
+
+                </div>
+
+                <!-- Password -->
+
+                <div class="input-group">
+
+                    <label for="password">
+
+                        Password
+
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required>
+
+                </div>
+
+                <!-- Login Options -->
+
+                <div class="login-options">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            id="showPassword">
+
+                        Show Password
+
+                    </label>
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            id="rememberMe"
+                            name="rememberMe">
+
+                        Remember Me
+
+                    </label>
+
+                </div>
+
+                <!-- Forgot Password -->
+
+                <div class="forgot-password">
+
+                    <a href="#">
+
+                        Forgot Password?
+
+                    </a>
+
+                </div>
+				<!-- =====================================
+                     ACTION BUTTONS
+                ====================================== -->
+
+                <div class="button-group">
+
+                    <!-- Login Button -->
+
+                    <button
+                        type="submit"
+                        id="loginButton"
+                        class="login-btn"
+                        disabled>
+
+                        Login
+
+                    </button>
+
+                    <!-- Login Activity -->
+
+                    <button
+                        type="button"
+                        id="loginActivityButton"
+                        class="activity-btn">
+
+                        Login Activity
+
+                    </button>
+
+                </div>
+
+                <!-- =====================================
+                     LOGIN MESSAGE AREA
+                ====================================== -->
+
+                <div
+                    id="loginMessage"
+                    class="login-message">
+
+                </div>
+
+            </form>
+
+        </section>
+		<!-- =====================================
+             FOOTER
+        ====================================== -->
+
+        <footer class="login-footer">
+
+            <p>
+
+                © 2026 Veerayatan Polytechnic
+
+            </p>
+
+            <p>
+
+                Computer Engineering Department
+
+            </p>
+
+            <p>
+
+                Smart Attendance System
+                Version 1.0
+
+            </p>
+
+            <p>
+
+                Developed & Maintained by
+                Ronit Choudhary
+
+            </p>
+
+        </footer>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/admin.js') }}">
+</script>
+
+</body>
+
+</html>

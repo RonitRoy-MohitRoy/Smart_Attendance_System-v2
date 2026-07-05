@@ -1,11 +1,40 @@
-from flask import Flask, render_template, request, jsonify, send_file
-from openpyxl import Workbook
-from datetime import datetime
+from flask import (
+    Flask,
+    render_template,
+    request,
+    jsonify,
+    send_file,
+    session,
+    redirect,
+    url_for
+)
 
+from openpyxl import Workbook
+
+from datetime import (
+    datetime,
+    timedelta
+)
+
+from functools import wraps
+
+import sqlite3
 import os
 import json
 
 app = Flask(__name__)
+
+# ==================================================
+# SECURITY
+# ==================================================
+
+app.secret_key = (
+    "CHANGE_THIS_TO_A_LONG_RANDOM_SECRET_KEY"
+)
+
+app.permanent_session_lifetime = timedelta(
+    hours=8
+)
 
 # ==================================================
 # FOLDERS & FILES
@@ -17,24 +46,497 @@ STUDENT_FOLDER = "student"
 CLASS_ACTIVITY_FILE = "class_activity_data.json"
 SUBJECTS_FILE = "subjects.json"
 
+# ==================================================
+# LOGIN SYSTEM
+# ==================================================
+
+DATABASE_FILE = "users.db"
+
+LOGIN_ACTIVITY_FILE = (
+    "login_activity.json"
+)
+
 os.makedirs(ATTENDANCE_FOLDER, exist_ok=True)
 os.makedirs(STUDENT_FOLDER, exist_ok=True)
 
+# ==================================================
+# DATABASE INITIALIZATION
+# ==================================================
+
+def initialize_database():
+
+    connection = sqlite3.connect(
+        DATABASE_FILE
+    )
+
+    cursor = connection.cursor()
+
+    cursor.execute("""
+
+        CREATE TABLE IF NOT EXISTS users(
+
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+            username TEXT UNIQUE,
+
+            password TEXT,
+
+            full_name TEXT,
+
+            role TEXT
+
+        )
+
+    """)
+
+    connection.commit()
+
+    connection.close()
+
+# ==================================================
+# LOGIN ACTIVITY FILE
+# ==================================================
+
+def initialize_login_activity():
+
+    if not os.path.exists(
+        LOGIN_ACTIVITY_FILE
+    ):
+
+        with open(
+
+            LOGIN_ACTIVITY_FILE,
+
+            "w",
+
+            encoding="utf-8"
+
+        ) as file:
+
+            json.dump(
+
+                [],
+
+                file,
+
+                indent=4,
+
+                ensure_ascii=False
+
+            )
+
+# ==================================================
+# INITIALIZE FILES
+# ==================================================
+
+initialize_database()
+
+initialize_login_activity()
+
+
+# ==================================================
+# LOGIN HELPER FUNCTIONS
+# ==================================================
+
+from werkzeug.security import (
+    generate_password_hash,
+    check_password_hash
+)
+
+def get_connection():
+
+    return sqlite3.connect(
+        DATABASE_FILE
+    )
+
+def create_default_users():
+
+    connection = get_connection()
+
+    cursor = connection.cursor()
+
+    users = [
+
+    (
+        "ronit",
+        generate_password_hash(
+            "Ronit@123"
+        ),
+        "Ronit Choudhary",
+        "admin"
+    ),
+
+    (
+        "teacher1",
+        generate_password_hash(
+            "Teacher@123"
+        ),
+        "Faculty 1",
+        "teacher"
+    ),
+
+    (
+        "teacher2",
+        generate_password_hash(
+            "Teacher@123"
+        ),
+        "Faculty 2",
+        "teacher"
+    ),
+
+    (
+        "teacher3",
+        generate_password_hash(
+            "Teacher@123"
+        ),
+        "Faculty 3",
+        "teacher"
+    )
+
+]
+
+    for user in users:
+
+        cursor.execute(
+
+            """
+
+            INSERT OR IGNORE INTO users
+
+            (
+
+                username,
+
+                password,
+
+                full_name,
+
+                role
+
+            )
+
+            VALUES
+
+            (?, ?, ?, ?)
+
+            """,
+
+            user
+
+        )
+
+    connection.commit()
+
+    connection.close()
+
+create_default_users()
+# ==================================================
+# LOGIN REQUIRED DECORATOR
+# ==================================================
+
+def login_required(function):
+
+    @wraps(function)
+
+    def wrapper(*args, **kwargs):
+
+        if "user_id" not in session:
+
+            return redirect(
+
+                url_for("admin")
+
+            )
+
+        return function(
+
+            *args,
+
+            **kwargs
+
+        )
+
+    return wrapper
+
+# ==================================================
+# ADMIN REQUIRED DECORATOR
+# ==================================================
+
+def admin_required(function):
+
+    @wraps(function)
+
+    def wrapper(*args, **kwargs):
+
+        if "user_role" not in session:
+
+            return redirect(
+
+                url_for("admin")
+
+            )
+
+        if session["user_role"] != "admin":
+
+            return "Access Denied", 403
+
+        return function(
+
+            *args,
+
+            **kwargs
+
+        )
+
+    return wrapper
+    # ==================================================
+# LOGIN ACTIVITY
+# ==================================================
+
+def save_login_activity(username):
+
+    activities = []
+
+    if os.path.exists(LOGIN_ACTIVITY_FILE):
+
+        with open(
+            LOGIN_ACTIVITY_FILE,
+            "r",
+            encoding="utf-8"
+        ) as file:
+
+            try:
+                activities = json.load(file)
+            except:
+                activities = []
+
+    now = datetime.now()
+
+    seven_days_ago = now - timedelta(days=7)
+
+    activities = [
+
+        item
+
+        for item in activities
+
+        if datetime.fromisoformat(
+            item["time"]
+        ) >= seven_days_ago
+
+    ]
+
+    activities.append({
+
+        "username": username,
+
+        "time": now.isoformat()
+
+    })
+
+    with open(
+
+        LOGIN_ACTIVITY_FILE,
+
+        "w",
+
+        encoding="utf-8"
+
+    ) as file:
+
+        json.dump(
+
+            activities,
+
+            file,
+
+            indent=4,
+
+            ensure_ascii=False
+
+        )
+    
 
 # ==================================================
 # HOME PAGE
 # ==================================================
 
 @app.route("/")
+
 def home():
-    return render_template("index.html")
 
+    if "user_id" not in session:
 
+        return redirect(
+
+            url_for("admin")
+
+        )
+
+    return render_template(
+
+        "index.html"
+
+    )
+    # ==================================================
+# ADMIN LOGIN PAGE
+# ==================================================
+
+@app.route("/admin")
+def admin():
+
+    if "user_id" in session:
+
+        return redirect(
+            url_for("home")
+        )
+
+    return render_template(
+        "admin.html"
+    )
+
+# ==================================================
+# LOGIN
+# ==================================================
+
+@app.route(
+    "/login",
+    methods=["POST"]
+)
+def login():
+
+    data = request.get_json()
+
+    username = data.get(
+        "username"
+    )
+
+    password = data.get(
+        "password"
+    )
+
+    connection = get_connection()
+
+    cursor = connection.cursor()
+
+    cursor.execute(
+
+        """
+
+        SELECT
+
+            id,
+            username,
+            password,
+            full_name,
+            role
+
+        FROM users
+
+        WHERE username=?
+
+        """,
+
+        (username,)
+
+    )
+
+    user = cursor.fetchone()
+
+    connection.close()
+
+    if (
+        user
+        and
+        check_password_hash(
+            user[2],
+            password
+        )
+    ):
+
+        session.permanent = True
+
+        session["user_id"] = user[0]
+        session["username"] = user[1]
+        session["full_name"] = user[3]
+        session["user_role"] = user[4]
+        
+        save_login_activity(
+            user[1] 
+            )
+
+        return jsonify({
+
+            "success": True,
+
+            "role": user[4]
+
+        })
+
+    return jsonify({
+
+        "success": False,
+
+        "message": "Invalid Username or Password"
+
+    })
+
+# ==================================================
+# LOGOUT
+# ==================================================
+
+@app.route("/logout")
+def logout():
+
+    session.clear()
+
+    return redirect(
+        url_for("admin")
+    )
+    
+    # ==================================================
+# LOGIN ACTIVITY
+# ==================================================
+
+@app.route("/login_activity")
+@login_required
+def login_activity():
+
+    if not os.path.exists(
+        LOGIN_ACTIVITY_FILE
+    ):
+
+        return jsonify([])
+
+    with open(
+
+        LOGIN_ACTIVITY_FILE,
+
+        "r",
+
+        encoding="utf-8"
+
+    ) as file:
+
+        try:
+
+            activities = json.load(file)
+
+        except:
+
+            activities = []
+
+    return jsonify(
+
+        activities
+
+    )
 # ==================================================
 # ATTENDANCE PAGE
 # ==================================================
 
 @app.route("/attendance/<semester>")
+@login_required
 def attendance(semester):
     return render_template(
         "attendance.html",
@@ -47,6 +549,7 @@ def attendance(semester):
 # ==================================================
 
 @app.route("/save_attendance", methods=["POST"])
+@login_required
 def save_attendance():
 
     try:
@@ -104,6 +607,7 @@ def save_attendance():
 # ==================================================
 
 @app.route("/get_all/<semester>")
+@login_required
 def get_all(semester):
 
     try:
@@ -142,6 +646,7 @@ def get_all(semester):
 # ==================================================
 
 @app.route("/download_excel/<semester>")
+@login_required
 def download_excel(semester):
     semester=semester.upper()
 
@@ -246,6 +751,7 @@ def download_excel(semester):
 # ==================================================
 
 @app.route("/class_activity/<semester>")
+@login_required
 def class_activity(semester):
 
     return render_template(
@@ -259,6 +765,7 @@ def class_activity(semester):
 # ==================================================
 
 @app.route("/save_subjects", methods=["POST"])
+@login_required
 def save_subjects():
 
     try:
@@ -319,6 +826,7 @@ def save_subjects():
 # ==================================================
 
 @app.route("/get_subjects/<semester>")
+@login_required
 def get_subjects(semester):
 
     try:
@@ -354,6 +862,7 @@ def get_subjects(semester):
 # ==================================================
 
 @app.route("/save_student", methods=["POST"])
+@login_required
 def save_student():
 
     try:
@@ -423,6 +932,7 @@ def save_student():
 # ==================================================
 
 @app.route("/get_students/<semester>")
+@login_required
 def get_students(semester):
 
     try:
@@ -982,8 +1492,18 @@ def download_class_activity():
 
 if __name__ == "__main__":
 
+    initialize_database()
+
+    create_default_users()
+
+    initialize_login_activity()
+
     app.run(
+
         host="0.0.0.0",
+
         port=5000,
+
         debug=True
+
     )
